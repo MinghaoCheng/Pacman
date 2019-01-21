@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pi/Desktop/Pacman/car/src/main.cpp
+stdio.h
+-
+main.h
+/home/pi/Desktop/Pacman/car/src/main.h
+test/test.h
+/home/pi/Desktop/Pacman/car/src/test/test.h
+
+/home/pi/Desktop/Pacman/car/src/main.h
+
+/home/pi/Desktop/Pacman/car/src/test/test.cpp
+test.h
+/home/pi/Desktop/Pacman/car/src/test/test.h
+
+/home/pi/Desktop/Pacman/car/src/test/test.h
+stdio.h
+-
+
