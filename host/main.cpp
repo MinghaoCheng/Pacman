@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-void main(void)
+int main(void)
 {
     printf("hello host!\n");
+    return 0;
 }
