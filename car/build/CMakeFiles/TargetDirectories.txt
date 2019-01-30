@@ -1,3 +1,0 @@
-/home/pi/Desktop/Pacman/car/build/CMakeFiles/rebuild_cache.dir
-/home/pi/Desktop/Pacman/car/build/CMakeFiles/edit_cache.dir
-/home/pi/Desktop/Pacman/car/build/CMakeFiles/car.dir
