@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pi/Desktop/Pacman/host/src/Drivers/spi.cpp
+stdio.h
+-
+spi.h
+/home/pi/Desktop/Pacman/host/src/Drivers/spi.h
+
+/home/pi/Desktop/Pacman/host/src/Drivers/spi.h
+stdint.h
+-
+
+/home/pi/Desktop/Pacman/host/src/main.cpp
+stdio.h
+-
+stdint.h
+-
+pthread.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+fcntl.h
+-
+unistd.h
+-
+poll.h
+-
+Drivers/spi.h
+/home/pi/Desktop/Pacman/host/src/Drivers/spi.h
+

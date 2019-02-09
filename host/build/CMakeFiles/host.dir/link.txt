@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -g   CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/main.cpp.o CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/spi.cpp.o  -o /home/pi/Desktop/Pacman/host/host 
