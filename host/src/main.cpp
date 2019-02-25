@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
+
 #include <pthread.h>
 
 #include <sys/types.h>
@@ -9,17 +11,18 @@
 
 #include <poll.h>
 
-#include "Drivers/spi.h"
+#include "Drivers/mcp23s17.h"
+#include "Drivers/mcp23x0817.h"
 
-int main(void)
+int main(int argc, char *argv[])
 {
+    /*
     int GPIO_fd;
     char status;
     
     struct pollfd fds[1];
     int poll_ret;
     
-    SPI::init();
 
     GPIO_fd = open("/dev/GPIO_INT", O_RDWR,S_IRUSR | S_IWUSR);
     if(GPIO_fd == -1)
@@ -43,6 +46,20 @@ int main(void)
             }
         }
     }
+    */
+    uint8_t buff;
+    mcp_init();
+    //buff = read_test(MCP23x17_IODIRA);
+    //printf("IODIRA = %x\n", buff);
     
+    while(1)
+    {
+        printf("GPIO high\n");
+        test_high();
+        sleep(1);
+        printf("GPIO low\n");
+        test_low();
+        sleep(1);
+    }
     return 0;
 }

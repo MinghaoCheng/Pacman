@@ -1,3 +1,0 @@
-/home/pi/Desktop/Pacman/host/build/CMakeFiles/rebuild_cache.dir
-/home/pi/Desktop/Pacman/host/build/CMakeFiles/edit_cache.dir
-/home/pi/Desktop/Pacman/host/build/CMakeFiles/host.dir

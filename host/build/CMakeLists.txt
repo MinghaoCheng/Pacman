@@ -13,7 +13,7 @@ set (SRC_DIR "${PROJ_DIR}/src")
 # add folders of source files
 aux_source_directory(${SRC_DIR} MAIN_SRC)
 aux_source_directory(${SRC_DIR}/Drivers DRIVER_SRC)
-aux_source_directory(${SRC_DIR}/Drivers GAME_SRC)
+aux_source_directory(${SRC_DIR}/Game GAME_SRC)
 
 # set exe output path
 set(EXECUTABLE_OUTPUT_PATH ${PROJ_DIR})

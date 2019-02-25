@@ -123,32 +123,59 @@ host/fast:
 	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/build
 .PHONY : host/fast
 
-home/pi/Desktop/Pacman/host/src/Drivers/spi.o: home/pi/Desktop/Pacman/host/src/Drivers/spi.cpp.o
+home/pi/Desktop/Pacman/host/src/Drivers/SPI.o: home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.o
 
-.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/spi.o
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/SPI.o
 
 # target to build an object file
-home/pi/Desktop/Pacman/host/src/Drivers/spi.cpp.o:
-	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/spi.cpp.o
-.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/spi.cpp.o
+home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.o:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.o
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.o
 
-home/pi/Desktop/Pacman/host/src/Drivers/spi.i: home/pi/Desktop/Pacman/host/src/Drivers/spi.cpp.i
+home/pi/Desktop/Pacman/host/src/Drivers/SPI.i: home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.i
 
-.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/spi.i
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/SPI.i
 
 # target to preprocess a source file
-home/pi/Desktop/Pacman/host/src/Drivers/spi.cpp.i:
-	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/spi.cpp.i
-.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/spi.cpp.i
+home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.i:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.i
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.i
 
-home/pi/Desktop/Pacman/host/src/Drivers/spi.s: home/pi/Desktop/Pacman/host/src/Drivers/spi.cpp.s
+home/pi/Desktop/Pacman/host/src/Drivers/SPI.s: home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.s
 
-.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/spi.s
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/SPI.s
 
 # target to generate assembly for a file
-home/pi/Desktop/Pacman/host/src/Drivers/spi.cpp.s:
-	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/spi.cpp.s
-.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/spi.cpp.s
+home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.s:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.s
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.s
+
+home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.o: home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.o
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.o
+
+# target to build an object file
+home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.o:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.o
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.o
+
+home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.i: home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.i
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.i
+
+# target to preprocess a source file
+home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.i:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.i
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.i
+
+home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.s: home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.s
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.s
+
+# target to generate assembly for a file
+home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.s:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.s
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.s
 
 home/pi/Desktop/Pacman/host/src/main.o: home/pi/Desktop/Pacman/host/src/main.cpp.o
 
@@ -186,9 +213,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... host"
-	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/spi.o"
-	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/spi.i"
-	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/spi.s"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/SPI.o"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/SPI.i"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/SPI.s"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.o"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.i"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.s"
 	@echo "... home/pi/Desktop/Pacman/host/src/main.o"
 	@echo "... home/pi/Desktop/Pacman/host/src/main.i"
 	@echo "... home/pi/Desktop/Pacman/host/src/main.s"
