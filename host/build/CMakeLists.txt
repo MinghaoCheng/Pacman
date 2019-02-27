@@ -14,9 +14,14 @@ set (SRC_DIR "${PROJ_DIR}/src")
 aux_source_directory(${SRC_DIR} MAIN_SRC)
 aux_source_directory(${SRC_DIR}/Drivers DRIVER_SRC)
 aux_source_directory(${SRC_DIR}/Game GAME_SRC)
+aux_source_directory(${SRC_DIR}/util UTIL_SRC)
+
+# find packages
+find_package (Threads)
 
 # set exe output path
 set(EXECUTABLE_OUTPUT_PATH ${PROJ_DIR})
 
 # add exe
-add_executable(host ${MAIN_SRC} ${DRIVER_SRC} ${GAME_SRC})
+add_executable(host ${MAIN_SRC} ${DRIVER_SRC} ${GAME_SRC} ${UTIL_SRC})
+target_link_libraries (host ${CMAKE_THREAD_LIBS_INIT})

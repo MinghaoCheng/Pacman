@@ -8,6 +8,7 @@ class SPI
 {
     public:
     SPI(uint8_t channel, uint32_t speed, uint8_t mode, uint8_t bits_per_word);
+    ~SPI();
     int8_t Open(void);
     int8_t ReadWrite_Buffer(uint8_t *tx_buffer, uint8_t *rx_buffer, uint8_t length);
     

@@ -1,15 +1,29 @@
 #ifndef _MCP23S17_H_
 #define _MCP23S17_H_
 
+#include <stdio.h>
 #include <stdint.h>
+#include <pthread.h>
 
-void mcp_write_byte(uint8_t devId, uint8_t reg, uint8_t byte);
-uint8_t mcp_read_byte(uint8_t devId, uint8_t reg);
+#include "mcp23x17_reg.h"
+#include "SPI.h"
 
-void mcp_init(void);
+typedef void (*IRQ_callback) (uint8_t GPIO_value);
 
-void test_high(void);
-void test_low(void);
-uint8_t read_test(uint8_t addr);
+class MCP23S17
+{
+	public:
+	MCP23S17(uint8_t channel);
+	~MCP23S17();
+	
+	int8_t init(IRQ_callback cb);
+	void test_bit(uint8_t value);
+		
+	private:
+	SPI *spi_dev;
+	IRQ_callback INT_handler;
+	void write_reg(uint8_t address, uint8_t reg, uint8_t value);
+    uint8_t read_reg(uint8_t address, uint8_t reg);
+};
 
 #endif

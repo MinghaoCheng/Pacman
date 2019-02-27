@@ -1,62 +1,70 @@
 #include "mcp23s17.h"
-#include "mcp23x0817.h"
 
-#include "SPI.h"
-#include "stdio.h"
+#define SPI_MODE  0
+#define SPI_SPEED 1000
+#define SPI_BPW   8
 
-SPI *spi_dev;
-
-void mcp_write_byte(uint8_t devId, uint8_t reg, uint8_t byte)
+MCP23S17::MCP23S17(uint8_t channel)
 {
-	uint8_t spiData [3] ;
-
-	spiData [0] = CMD_WRITE | ((devId & 7) << 1) ;
-	spiData [1] = reg ;
-	spiData [2] = byte ;
-	
-	spi_dev->ReadWrite_Buffer(spiData, spiData, 3);
+    this->spi_dev = new SPI(channel, SPI_SPEED, SPI_MODE, SPI_BPW);
 }
 
-uint8_t mcp_read_byte(uint8_t devId, uint8_t reg)
+MCP23S17::~MCP23S17()
 {
-	uint8_t spiData [3] ;
-
-	spiData [0] = CMD_READ | ((devId & 7) << 1) ;
-	spiData [1] = reg ;
-
-	spi_dev->ReadWrite_Buffer(spiData, spiData, 3) ;
-
-	return spiData [2] ;
+    delete this->spi_dev;
 }
 
-void mcp_init(void)
+int8_t MCP23S17::init(IRQ_callback int_handler)
 {
-	spi_dev = new SPI(0, 1000, 0, 8);
-	if(-1 < spi_dev->Open())
-	{
-		mcp_write_byte(0, MCP23x17_IOCON, IOCON_SEQOP);
-                mcp_write_byte(0, MCP23x17_IOCONB,IOCON_SEQOP);
-		mcp_write_byte(0, MCP23x17_IODIRA, 0xfe);
-		printf("SPI init OK\n");
-	}
-	else
-	{
-		printf("SPI init failed\n");
-	}
+    if(-1 < spi_dev->Open())
+    {
+        this->write_reg(0, IOCON, IOCON_SEQOP);
+        this->write_reg(0, IOCONB,IOCON_SEQOP);
+        this->write_reg(0, IODIRA, 0xfe);
+        this->INT_handler = int_handler;
+        printf("SPI init OK\n");
+        return 0;
+    }
+    else
+    {
+        printf("SPI init failed\n");
+        return -1;
+    }
+}
+    
+void MCP23S17::write_reg(uint8_t address, uint8_t reg, uint8_t value)
+{
+    uint8_t spiData [3] ;
+
+    spiData [0] = CMD_WRITE | ((address & 7) << 1);
+    spiData [1] = reg;
+    spiData [2] = value;
+    
+    this->spi_dev->ReadWrite_Buffer(spiData, spiData, 3);
 }
 
-void test_high(void)
+uint8_t MCP23S17::read_reg(uint8_t address, uint8_t reg)
 {
-        mcp_write_byte(0, MCP23x17_GPIOA, 0x01);
-	mcp_write_byte(0, MCP23x17_OLATA, 0x01);
+    uint8_t spiData [3] ;
+
+    spiData [0] = CMD_READ | ((address & 7) << 1) ;
+    spiData [1] = reg ;
+
+    this->spi_dev->ReadWrite_Buffer(spiData, spiData, 3) ;
+
+    return spiData [2] ;
 }
 
-void test_low(void)
+void MCP23S17::test_bit(uint8_t value)
 {
-        mcp_write_byte(0, MCP23x17_GPIOA, 0x00);
-	mcp_write_byte(0, MCP23x17_OLATA, 0x00);
-}
-uint8_t read_test(uint8_t addr)
-{
-	return mcp_read_byte(0, addr);
+    if(value)
+    {
+		this->write_reg(0, GPIOA, 0x01);
+        this->write_reg(0, OLATA, 0x01);
+    }
+    else
+    {
+		this->write_reg(0, GPIOA, 0x00);
+        this->write_reg(0, OLATA, 0x00);
+    }
 }

@@ -204,6 +204,33 @@ home/pi/Desktop/Pacman/host/src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/main.cpp.s
 .PHONY : home/pi/Desktop/Pacman/host/src/main.cpp.s
 
+home/pi/Desktop/Pacman/host/src/util/Thread.o: home/pi/Desktop/Pacman/host/src/util/Thread.cpp.o
+
+.PHONY : home/pi/Desktop/Pacman/host/src/util/Thread.o
+
+# target to build an object file
+home/pi/Desktop/Pacman/host/src/util/Thread.cpp.o:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/util/Thread.cpp.o
+.PHONY : home/pi/Desktop/Pacman/host/src/util/Thread.cpp.o
+
+home/pi/Desktop/Pacman/host/src/util/Thread.i: home/pi/Desktop/Pacman/host/src/util/Thread.cpp.i
+
+.PHONY : home/pi/Desktop/Pacman/host/src/util/Thread.i
+
+# target to preprocess a source file
+home/pi/Desktop/Pacman/host/src/util/Thread.cpp.i:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/util/Thread.cpp.i
+.PHONY : home/pi/Desktop/Pacman/host/src/util/Thread.cpp.i
+
+home/pi/Desktop/Pacman/host/src/util/Thread.s: home/pi/Desktop/Pacman/host/src/util/Thread.cpp.s
+
+.PHONY : home/pi/Desktop/Pacman/host/src/util/Thread.s
+
+# target to generate assembly for a file
+home/pi/Desktop/Pacman/host/src/util/Thread.cpp.s:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/util/Thread.cpp.s
+.PHONY : home/pi/Desktop/Pacman/host/src/util/Thread.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -222,6 +249,9 @@ help:
 	@echo "... home/pi/Desktop/Pacman/host/src/main.o"
 	@echo "... home/pi/Desktop/Pacman/host/src/main.i"
 	@echo "... home/pi/Desktop/Pacman/host/src/main.s"
+	@echo "... home/pi/Desktop/Pacman/host/src/util/Thread.o"
+	@echo "... home/pi/Desktop/Pacman/host/src/util/Thread.i"
+	@echo "... home/pi/Desktop/Pacman/host/src/util/Thread.s"
 .PHONY : help
 
 
