@@ -1,10 +1,11 @@
 #include "mcp23s17.h"
+#include "mcp23x17_reg.h"
 
 #define SPI_MODE  0
-#define SPI_SPEED 1000
+#define SPI_SPEED 100
 #define SPI_BPW   8
 
-MCP23S17::MCP23S17(uint8_t channel)
+MCP23S17::MCP23S17(uint8_t channel, pthread_t id):Thread(id)
 {
     this->spi_dev = new SPI(channel, SPI_SPEED, SPI_MODE, SPI_BPW);
 }
@@ -18,10 +19,17 @@ int8_t MCP23S17::init(IRQ_callback int_handler)
 {
     if(-1 < spi_dev->Open())
     {
-        this->write_reg(0, IOCON, IOCON_SEQOP);
-        this->write_reg(0, IOCONB,IOCON_SEQOP);
-        this->write_reg(0, IODIRA, 0xfe);
+        this->write_reg(0, IOCON, IOCON_SEQOP | IOCON_INTPOL); // disable sequential mode, int active high
+        this->write_reg(0, IOCONB,IOCON_SEQOP | IOCON_INTPOL);
+        this->write_reg(0, IODIRA, 0xfe);	// set GPIOA.0 as output
+        
+        
+        this->write_reg(0, DEFVALB, 0x00);	// int will be triggered when gpio is high
+        this->write_reg(0, INTCONB, 0x01);	// int will be triggered when gpio is against DEFVALB
+        this->write_reg(0, GPINTENB, 0x01); // enable int
+        
         this->INT_handler = int_handler;
+        
         printf("SPI init OK\n");
         return 0;
     }
@@ -29,6 +37,38 @@ int8_t MCP23S17::init(IRQ_callback int_handler)
     {
         printf("SPI init failed\n");
         return -1;
+    }
+}
+
+void MCP23S17::run(void)
+{
+    int GPIO_fd;
+    char status;
+    
+    struct pollfd fds[1];
+    int poll_ret;
+    
+
+    GPIO_fd = open("/dev/GPIO_INT", O_RDWR,S_IRUSR | S_IWUSR);
+    if(GPIO_fd == -1)
+    {
+        printf("file open failed\n");
+    }
+    
+    fds[0].fd = GPIO_fd;
+    fds[0].events = POLLPRI;
+    
+    while(1)
+    {
+        poll_ret = poll(fds, 1, -1);
+        if(poll_ret != 0)
+        {
+            status = read(fds[0].fd, &status, 1);
+            if(status == 1)
+            {
+                this->INT_handler(status);
+            }
+        }
     }
 }
     

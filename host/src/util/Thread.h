@@ -4,27 +4,19 @@
 #include <stdint.h>
 #include <pthread.h>
 
-typedef void (*thread_func) (void);
-
 class Thread
 {
     public:
-    Thread(thread_func func, pthread_t ID);
+    Thread(pthread_t ID);
     ~Thread();
     
-    void start();
-    void join();
+    void start(void);
+    void join(void);
+    virtual void run(void);
     
     private:
     pthread_t id;
-    thread_func pFunc;
     static void *exe(void *param);
-    /*
-    {
-        reinterpret_cast<Thread *> (param)->pFunc();
-        return NULL;
-    }
-    */
 };
 
 #endif
