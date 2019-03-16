@@ -1,5 +1,10 @@
 #include "Thread.h"
 
+Thread::Thread()
+{
+    
+}
+
 Thread::Thread(pthread_t ID)
 {
     this->id = ID;

@@ -16,18 +16,20 @@ typedef void (*IRQ_callback) (uint8_t GPIO_value);
 
 class MCP23S17:public Thread
 {
-	public:
-	MCP23S17(uint8_t channel, pthread_t id);
-	~MCP23S17();
+    public:
+    MCP23S17(uint8_t channel);
+    MCP23S17(uint8_t channel, IRQ_callback int_handler, pthread_t id);
+    ~MCP23S17();
 	
-	int8_t init(IRQ_callback cb);
-	void test_bit(uint8_t value);
-		
-	private:
-	SPI *spi_dev;
-	IRQ_callback INT_handler;
-	void run(void);
-	void write_reg(uint8_t address, uint8_t reg, uint8_t value);
+    int8_t init(void);
+    void Set_GPIOA(uint8_t val);
+    void Set_GPIOB(uint8_t val);
+	
+    private:
+    SPI *spi_dev;
+    IRQ_callback INT_handler;
+    void run(void);
+    void write_reg(uint8_t address, uint8_t reg, uint8_t value);
     uint8_t read_reg(uint8_t address, uint8_t reg);
 };
 

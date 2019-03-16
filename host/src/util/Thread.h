@@ -7,6 +7,7 @@
 class Thread
 {
     public:
+    Thread();
     Thread(pthread_t ID);
     ~Thread();
     
