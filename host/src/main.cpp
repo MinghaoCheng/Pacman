@@ -1,36 +1,48 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <unistd.h>
 
-#include "Drivers/mcp23s17.h"
-#include "util/Thread.h"
+#include "Drivers/led_matrix.h"
 
-void test_callback(uint8_t GPIO_value)
+uint8_t v_val[4]=
 {
-    printf("INT Callback, value = %x\n", GPIO_value);
-    //if(GPIO_value & 0x01)
-    //{
-        //printf("INTA Callback\n");
-    //}
-    //if(GPIO_value & 0x02)
-    //{
-        //printf("INTB Callback\n");
-    //}
+    0b0101,
+    0b1010,
+    0b0101,
+    0b1010
+};
+
+LED_matrix led_matrix(1);
+
+static void timer_handler(int val)
+{
+    led_matrix.refresh();
 }
 
-int main(int argc, char *argv[])
+int main(void)
 {
-    MCP23S17 gpio(0, test_callback, 0);
-    printf("Initialising\n");
-    gpio.init();
-    printf("Initialise finished\n");
-    gpio.start();
     
+    printf("Initialising\n");
+    led_matrix.init();
+    printf("Initialised\n");
+    //signal(SIGALRM, timer_handler);
+    //ualarm(10,10);
+    led_matrix.start();
     while(1)
     {
+        led_matrix.write_val(v_val);
         sleep(1);
+        for (uint8_t i=0; i<4; i++)
+        {
+            v_val[i] = (~v_val[i])&0x0f;
+        }
+        led_matrix.write_val(v_val);
+        sleep(1);
+        for (uint8_t i=0; i<4; i++)
+        {
+            v_val[i] = (~v_val[i])&0x0f;
+        }
     }
     return 0;
 }

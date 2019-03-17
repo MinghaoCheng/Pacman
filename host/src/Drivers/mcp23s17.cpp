@@ -9,14 +9,14 @@
 
 MCP23S17::MCP23S17(uint8_t channel)
 {
-    this->INT_handler = NULL;
     this->spi_dev = new SPI(channel, SPI_SPEED, SPI_MODE, SPI_BPW);
+    this->dev_mode = OUTPUT_DEV;
 }
 
-MCP23S17::MCP23S17(uint8_t channel, IRQ_callback int_handler, pthread_t id):Thread(id)
+MCP23S17::MCP23S17(uint8_t channel, pthread_t id):Thread(id)
 {
-    this->INT_handler = int_handler;
     this->spi_dev = new SPI(channel, SPI_SPEED, SPI_MODE, SPI_BPW);
+    this->dev_mode = INPUT_DEV;
 }
 
 MCP23S17::~MCP23S17()
@@ -29,8 +29,8 @@ int8_t MCP23S17::init(void)
     // Open SPI
     if(-1 < spi_dev->Open())
     {
-        this->write_reg(0, IOCON, IOCON_SEQOP | IOCON_INTPOL);  // disable sequential mode, int active high
-        this->write_reg(0, IOCONB,IOCON_SEQOP | IOCON_INTPOL);  // disable sequential mode, int active high
+        this->write_reg(DEV_ADDR, IOCON, IOCON_SEQOP | IOCON_INTPOL);  // disable sequential mode, int active high
+        this->write_reg(DEV_ADDR, IOCONB,IOCON_SEQOP | IOCON_INTPOL);  // disable sequential mode, int active high
         
         printf("SPI init OK\n");
         return 0;
@@ -42,9 +42,11 @@ int8_t MCP23S17::init(void)
     }
     
     // This is a output device
-    if(this->INT_handler == NULL)
+    if(this->dev_mode == OUTPUT_DEV)
     {
-        this->write_reg(0, 
+        // set GPIOA and GPIOB as output
+        this->write_reg(DEV_ADDR, IODIRA, 0xff);
+        this->write_reg(DEV_ADDR, IODIRB, 0xff);
     }
     // This is a input device
     else
@@ -55,12 +57,14 @@ int8_t MCP23S17::init(void)
 
 void MCP23S17::Set_GPIOA(uint8_t val)
 {
-    
+    this->write_reg(DEV_ADDR, GPIOA, val);
+    this->write_reg(DEV_ADDR, OLATA, val);
 }
 
 void MCP23S17::Set_GPIOB(uint8_t val)
 {
-    
+    this->write_reg(DEV_ADDR, GPIOB, val);
+    this->write_reg(DEV_ADDR, OLATB, val);
 }
 
 void MCP23S17::run(void)
@@ -89,7 +93,7 @@ void MCP23S17::run(void)
             status = read(fds[0].fd, &val, 1);
             if(status)
             {
-                this->INT_handler(val);
+                //this->INT_handler(val);
             }
         }
     }

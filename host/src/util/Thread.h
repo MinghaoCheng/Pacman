@@ -13,6 +13,8 @@ class Thread
     
     void start(void);
     void join(void);
+    
+    protected:
     virtual void run(void);
     
     private:

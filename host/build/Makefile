@@ -150,6 +150,33 @@ home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.s:
 	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.s
 .PHONY : home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.s
 
+home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.o: home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.cpp.o
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.o
+
+# target to build an object file
+home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.cpp.o:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.cpp.o
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.cpp.o
+
+home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.i: home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.cpp.i
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.i
+
+# target to preprocess a source file
+home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.cpp.i:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.cpp.i
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.cpp.i
+
+home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.s: home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.cpp.s
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.s
+
+# target to generate assembly for a file
+home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.cpp.s:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.cpp.s
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.cpp.s
+
 home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.o: home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.o
 
 .PHONY : home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.o
@@ -243,6 +270,9 @@ help:
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/SPI.o"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/SPI.i"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/SPI.s"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.o"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.i"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.s"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.o"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.i"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.s"
