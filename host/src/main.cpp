@@ -22,7 +22,7 @@ static void timer_handler(int val)
 
 int main(void)
 {
-    
+
     printf("Initialising\n");
     led_matrix.init();
     printf("Initialised\n");
