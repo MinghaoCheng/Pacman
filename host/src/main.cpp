@@ -26,9 +26,9 @@ int main(void)
     printf("Initialising\n");
     led_matrix.init();
     printf("Initialised\n");
-    //signal(SIGALRM, timer_handler);
-    //ualarm(10,10);
-    led_matrix.start();
+    signal(SIGALRM, timer_handler);
+    ualarm(10,10);
+    //led_matrix.start();
     while(1)
     {
         led_matrix.write_val(v_val);
