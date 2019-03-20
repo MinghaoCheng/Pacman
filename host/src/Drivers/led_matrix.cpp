@@ -41,7 +41,10 @@ void LED_matrix::refresh(void)
 
 void LED_matrix::TIMER_handler(int sig, siginfo_t *si, void *uc)
 {
-    (reinterpret_cast<LED_matrix *> (si->si_value.sival_ptr))->refresh();
+    if(si != NULL)
+    {
+        (reinterpret_cast<LED_matrix *> (si->si_value.sival_ptr))->refresh();
+    }
 }
 
 void LED_matrix::run(void)
