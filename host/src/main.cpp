@@ -13,20 +13,36 @@ uint8_t v_val[4]=
 };
 
 
-
+LED_matrix led_matrix(0);
 static void timer_handler(int val)
 {
-    //led_matrix.refresh();
+    led_matrix.refresh();
 }
 int main(void)
 {
-    LED_matrix led_matrix(1);
+    
+    MCP23S17 LDR_matrix(0,1);
     printf("Initialising\n");
-    led_matrix.init();
+    if(-1 != LDR_matrix.init())
+    {
+        printf("LDR matrix initialised\n");
+    }
+    else
+    {
+        printf("LDR matrix initialising failed\n");
+    }
+    if(-1 != led_matrix.init())
+    {
+        printf("LED matrix initialised\n");
+    }
+    else
+    {
+        printf("LED matrix initialising failed\n");
+    }
     printf("Initialised\n");
-    //signal(SIGALRM, timer_handler);
-    //ualarm(40000,40000);
-    led_matrix.start();
+    signal(SIGALRM, timer_handler);
+    ualarm(250,250);
+    //led_matrix.start();
     led_matrix.write_val(v_val);
     while(1)
     {

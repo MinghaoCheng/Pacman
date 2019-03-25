@@ -33,6 +33,8 @@ class MCP23S17:public Thread
     private:
     Dev_mode dev_mode;
     SPI *spi_dev;
+    uint8_t SPI_channel;
+    uint8_t addr;
     static void Reset(void);
     void run(void);
     void write_reg(uint8_t address, uint8_t reg, uint8_t value);
