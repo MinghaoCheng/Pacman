@@ -9,9 +9,9 @@
 #define Pacman_major 123
 #define DEV_NAME "Pacman_dev"
 
-
-#define INTA_PIN 4
-#define INTB_PIN 3
+#define RESET_PIN   2
+#define INTA_PIN    4
+#define INTB_PIN    3
 
 volatile char INT_flag = 0;
 DECLARE_WAIT_QUEUE_HEAD(INT_waitq);    //declear wait queue head for poll interface
@@ -37,7 +37,12 @@ static ssize_t gpio_read(struct file *filp, char __user *buf, size_t count, loff
 
 static ssize_t gpio_write(struct file *filp, const char __user *buf, size_t count, loff_t *f_pos)
 {
-    //printk(KERN_INFO "inside gpio write\n");
+    uint8_t val;
+    if(0 == copy_from_user(&val, buf, 1))
+    {
+        //printk(KERN_INFO "writing to GPIO2 = %x\n", val);
+        gpio_set_value(RESET_PIN, val);
+    }
     return 0;
 }
 
@@ -106,6 +111,12 @@ static __init int Pacman_dev_init(void)
         printk(KERN_INFO "Pacman_dev PIN INTB request failed\n");
         return err;
     }
+    err = gpio_request_one(RESET_PIN, GPIOF_OUT_INIT_LOW, "Pacman_dev_RESET");
+    if (err)
+    {
+        printk(KERN_INFO "Pacman_dev PIN RESET request failed\n");
+        return err;
+    }
     // enable interrupt& register a callback function
     enable_irq(gpio_to_irq(INTA_PIN));
     err = request_irq(gpio_to_irq(INTA_PIN), irq_handler, IRQF_TRIGGER_RISING, DEV_NAME, NULL);
@@ -143,6 +154,7 @@ static __exit void Pacman_dev_exit(void)
     // release the pin
     gpio_free(INTA_PIN);
     gpio_free(INTB_PIN);
+    gpio_free(RESET_PIN);
     // unregister device, class & character deivce
     device_unregister(Pacman_dev_device);
     class_destroy(Pacman_dev_class);

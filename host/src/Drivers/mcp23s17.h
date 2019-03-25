@@ -27,13 +27,16 @@ class MCP23S17:public Thread
     int8_t init(void);
     void Set_GPIOA(uint8_t val);
     void Set_GPIOB(uint8_t val);
-	
+    
+    uint8_t read_reg(uint8_t address, uint8_t reg);
+
     private:
     Dev_mode dev_mode;
     SPI *spi_dev;
+    static void Reset(void);
     void run(void);
     void write_reg(uint8_t address, uint8_t reg, uint8_t value);
-    uint8_t read_reg(uint8_t address, uint8_t reg);
+    
 };
 
 #endif

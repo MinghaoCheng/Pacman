@@ -5,7 +5,7 @@
 #define SPI_SPEED   4000000
 #define SPI_BPW     8
 
-#define DEV_ADDR    0
+#define DEV_ADDR    0x07
 
 MCP23S17::MCP23S17(uint8_t channel)
 {
@@ -25,7 +25,9 @@ MCP23S17::~MCP23S17()
 }
 
 int8_t MCP23S17::init(void)
-{
+{    
+    // reset mcp23s17
+    MCP23S17::Reset();
     // Open SPI
     if(-1 < spi_dev->Open())
     {
@@ -33,26 +35,24 @@ int8_t MCP23S17::init(void)
         this->write_reg(DEV_ADDR, IOCONB,IOCON_SEQOP | IOCON_INTPOL);  // disable sequential mode, int active high
         
         printf("SPI init OK\n");
-        return 0;
     }
     else
     {
         printf("SPI init failed\n");
         return -1;
     }
-    
     // This is a output device
     if(this->dev_mode == OUTPUT_DEV)
     {
         // set GPIOA and GPIOB as output
-        this->write_reg(DEV_ADDR, IODIRA, 0xff);
-        this->write_reg(DEV_ADDR, IODIRB, 0xff);
+        this->write_reg(DEV_ADDR, IODIRA, 0x00);
+        this->write_reg(DEV_ADDR, IODIRB, 0x00);
     }
     // This is a input device
     else
     {
-        
     }
+    return 0;
 }
 
 void MCP23S17::Set_GPIOA(uint8_t val)
@@ -67,22 +67,41 @@ void MCP23S17::Set_GPIOB(uint8_t val)
     this->write_reg(DEV_ADDR, OLATB, val);
 }
 
+void MCP23S17::Reset(void)
+{
+    static bool flag = false;
+    static int GPIO_fd;
+    char val;
+    if(!flag)
+    {
+        flag = true;
+        GPIO_fd = open("/dev/Pacman_dev", O_RDWR,S_IRUSR | S_IWUSR);
+        if(GPIO_fd == -1)
+        {
+            printf("GPIO file open failed\n");
+        }
+        val = 0x00;
+        write(GPIO_fd, &val, 1);
+        usleep(10000);            //hold for 10 ms
+        val = 0x01;
+        write(GPIO_fd, &val, 1);
+    }
+}
+
 void MCP23S17::run(void)
 {
-    int GPIO_fd;
     char status, val;
     
     struct pollfd fds[1];
     int poll_ret;
     
 
-    GPIO_fd = open("/dev/Pacman_dev", O_RDWR,S_IRUSR | S_IWUSR);
-    if(GPIO_fd == -1)
+    fds[0].fd = open("/dev/Pacman_dev", O_RDWR,S_IRUSR | S_IWUSR);
+    if(fds[0].fd == -1)
     {
         printf("file open failed\n");
     }
     
-    fds[0].fd = GPIO_fd;
     fds[0].events = POLLPRI;
     
     while(1)
