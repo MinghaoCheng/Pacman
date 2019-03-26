@@ -11,34 +11,44 @@
 
 #include "SPI.h"
 #include "../util/Thread.h"
+#include "../util/callback.h"
+
+/*
+ * Description:
+ * enum to indicate the type of the device
+ */
 typedef enum 
 {
     INPUT_DEV = 0,
     OUTPUT_DEV = 1
 }Dev_mode;
 
+
+/*
+ * Decription:
+ * MCP23S17 driver
+ */
 class MCP23S17:public Thread
 {
     public:
-    MCP23S17(uint8_t channel);
-    MCP23S17(uint8_t channel, pthread_t id);
+    MCP23S17(uint8_t SPI_channel);
+    MCP23S17(uint8_t SPI_channel, callback *INT_callback, pthread_t id);
     virtual ~MCP23S17();
 	
     int8_t init(void);
     void Set_GPIOA(uint8_t val);
     void Set_GPIOB(uint8_t val);
-    
-    uint8_t read_reg(uint8_t address, uint8_t reg);
 
     private:
     Dev_mode dev_mode;
     SPI *spi_dev;
-    uint8_t SPI_channel;
+    uint8_t spi_channel;
     uint8_t addr;
     static void Reset(void);
     void run(void);
     void write_reg(uint8_t address, uint8_t reg, uint8_t value);
-    
+    uint8_t read_reg(uint8_t address, uint8_t reg);
+    callback *INT_handler;
 };
 
 #endif

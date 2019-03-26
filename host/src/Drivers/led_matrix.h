@@ -13,7 +13,7 @@ class LED_matrix:public Thread
 {
     public:
     LED_matrix(pthread_t ID);
-    ~LED_matrix();
+    virtual ~LED_matrix();
     int8_t init(void);
     void write_val(uint8_t *row);
     void refresh(void);

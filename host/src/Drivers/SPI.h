@@ -4,6 +4,10 @@
 #include <stdint.h>
 #include <linux/spi/spidev.h>
 
+/*
+ * Description:
+ * SPI bus driver in user space using spidev.h
+ */
 class SPI
 {
     public:

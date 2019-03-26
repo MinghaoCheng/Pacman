@@ -150,6 +150,33 @@ home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.s:
 	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.s
 .PHONY : home/pi/Desktop/Pacman/host/src/Drivers/SPI.cpp.s
 
+home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.o: home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.cpp.o
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.o
+
+# target to build an object file
+home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.cpp.o:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.cpp.o
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.cpp.o
+
+home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.i: home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.cpp.i
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.i
+
+# target to preprocess a source file
+home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.cpp.i:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.cpp.i
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.cpp.i
+
+home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.s: home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.cpp.s
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.s
+
+# target to generate assembly for a file
+home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.cpp.s:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.cpp.s
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.cpp.s
+
 home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.o: home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.cpp.o
 
 .PHONY : home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.o
@@ -203,6 +230,33 @@ home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.s: home/pi/Desktop/Pacman/host/
 home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.s:
 	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.s
 .PHONY : home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.s
+
+home/pi/Desktop/Pacman/host/src/Game.o: home/pi/Desktop/Pacman/host/src/Game.cpp.o
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Game.o
+
+# target to build an object file
+home/pi/Desktop/Pacman/host/src/Game.cpp.o:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Game.cpp.o
+.PHONY : home/pi/Desktop/Pacman/host/src/Game.cpp.o
+
+home/pi/Desktop/Pacman/host/src/Game.i: home/pi/Desktop/Pacman/host/src/Game.cpp.i
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Game.i
+
+# target to preprocess a source file
+home/pi/Desktop/Pacman/host/src/Game.cpp.i:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Game.cpp.i
+.PHONY : home/pi/Desktop/Pacman/host/src/Game.cpp.i
+
+home/pi/Desktop/Pacman/host/src/Game.s: home/pi/Desktop/Pacman/host/src/Game.cpp.s
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Game.s
+
+# target to generate assembly for a file
+home/pi/Desktop/Pacman/host/src/Game.cpp.s:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Game.cpp.s
+.PHONY : home/pi/Desktop/Pacman/host/src/Game.cpp.s
 
 home/pi/Desktop/Pacman/host/src/main.o: home/pi/Desktop/Pacman/host/src/main.cpp.o
 
@@ -270,12 +324,18 @@ help:
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/SPI.o"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/SPI.i"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/SPI.s"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.o"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.i"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/ldr_matrix.s"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.o"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.i"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/led_matrix.s"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.o"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.i"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.s"
+	@echo "... home/pi/Desktop/Pacman/host/src/Game.o"
+	@echo "... home/pi/Desktop/Pacman/host/src/Game.i"
+	@echo "... home/pi/Desktop/Pacman/host/src/Game.s"
 	@echo "... home/pi/Desktop/Pacman/host/src/main.o"
 	@echo "... home/pi/Desktop/Pacman/host/src/main.i"
 	@echo "... home/pi/Desktop/Pacman/host/src/main.s"
