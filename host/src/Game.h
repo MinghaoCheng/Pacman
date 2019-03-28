@@ -7,14 +7,18 @@
 #include "util/callback.h"
 #include "Drivers/led_matrix.h"
 #include "Drivers/ldr_matrix.h"
+#include "Drivers/brd_config.h"
 
 class Game:public Thread, public callback
 {
     public:
     Game(pthread_t ID);
     ~Game(void);
+    uint8_t vram[LED_matrix_Column];
     uint8_t init(void);
     void led_matrix_refresh(void);
+    
+    void reset(void);
     
     private:
     pthread_t id;
@@ -26,8 +30,5 @@ class Game:public Thread, public callback
     //Sound_dev *sound_dev;
     //Keyboard *key;
 };
-
-
-
 
 #endif

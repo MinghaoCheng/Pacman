@@ -19,7 +19,7 @@ int main(void)
         return -1;
     }
     signal(SIGALRM, led_refresh_handler);
-    ualarm(LED_row_refresh_period_us, LED_row_refresh_period_us);
+    ualarm(LED_ROW_REFRESH_PERIOD_US, LED_ROW_REFRESH_PERIOD_US);
     game_instance.start();
     while(1)
     {

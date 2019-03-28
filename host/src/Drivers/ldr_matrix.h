@@ -8,6 +8,13 @@
 #include "./../util/callback.h"
 #include "brd_config.h"
 
+/*      column0     column1     column2     column3
+ * row0 GPIOA.0x01  GPIOA.0x02  GPIOA.0x04  GPIOA.0x08
+ * row1 GPIOA.0x10  GPIOA.0x20  GPIOA.0x40  GPIOA.0x80
+ * row2 GPIOB.0x01  GPIOB.0x02  GPIOB.0x04  GPIOB.0x08
+ * row3 GPIOB.0x10  GPIOB.0x20  GPIOB.0x40  GPIOB.0x80
+ */
+
 class LDR_matrix: public Thread, public callback
 {
     public:
