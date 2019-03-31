@@ -17,10 +17,15 @@ aux_source_directory(${SRC_DIR}/util UTIL_SRC)
 
 # find packages
 find_package (Threads)
+find_package(ALSA REQUIRED)
+#add_definitions(-D__LINUX_ALSA__)
+
+# include directories
+include_directories(${ALSA_INCLUDE_DIRS})
 
 # set exe output path
 set(EXECUTABLE_OUTPUT_PATH ${PROJ_DIR})
 
 # add exe
 add_executable(host ${MAIN_SRC} ${DRIVER_SRC} ${UTIL_SRC})
-target_link_libraries (host ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries (host ${CMAKE_THREAD_LIBS_INIT} ${ALSA_LIBRARIES})

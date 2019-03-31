@@ -231,6 +231,33 @@ home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.s:
 	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.s
 .PHONY : home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.cpp.s
 
+home/pi/Desktop/Pacman/host/src/Drivers/sound.o: home/pi/Desktop/Pacman/host/src/Drivers/sound.cpp.o
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/sound.o
+
+# target to build an object file
+home/pi/Desktop/Pacman/host/src/Drivers/sound.cpp.o:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/sound.cpp.o
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/sound.cpp.o
+
+home/pi/Desktop/Pacman/host/src/Drivers/sound.i: home/pi/Desktop/Pacman/host/src/Drivers/sound.cpp.i
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/sound.i
+
+# target to preprocess a source file
+home/pi/Desktop/Pacman/host/src/Drivers/sound.cpp.i:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/sound.cpp.i
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/sound.cpp.i
+
+home/pi/Desktop/Pacman/host/src/Drivers/sound.s: home/pi/Desktop/Pacman/host/src/Drivers/sound.cpp.s
+
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/sound.s
+
+# target to generate assembly for a file
+home/pi/Desktop/Pacman/host/src/Drivers/sound.cpp.s:
+	$(MAKE) -f CMakeFiles/host.dir/build.make CMakeFiles/host.dir/home/pi/Desktop/Pacman/host/src/Drivers/sound.cpp.s
+.PHONY : home/pi/Desktop/Pacman/host/src/Drivers/sound.cpp.s
+
 home/pi/Desktop/Pacman/host/src/Game.o: home/pi/Desktop/Pacman/host/src/Game.cpp.o
 
 .PHONY : home/pi/Desktop/Pacman/host/src/Game.o
@@ -333,6 +360,9 @@ help:
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.o"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.i"
 	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/mcp23s17.s"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/sound.o"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/sound.i"
+	@echo "... home/pi/Desktop/Pacman/host/src/Drivers/sound.s"
 	@echo "... home/pi/Desktop/Pacman/host/src/Game.o"
 	@echo "... home/pi/Desktop/Pacman/host/src/Game.i"
 	@echo "... home/pi/Desktop/Pacman/host/src/Game.s"

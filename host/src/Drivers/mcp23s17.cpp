@@ -5,12 +5,11 @@
  * Description:
  * SPI params and addr specification
  */
-#define SPI_MODE    0
-#define SPI_SPEED   4000000
-#define SPI_BPW     8
+#define SPI_MODE            0
+#define SPI_SPEED           4000000
+#define SPI_BPW             8
 
-#define INPUT_DEV_ADDR          0x0
-#define OUTPUT_DEV_ADDR         0x7
+#define DEV_ADDR            0x0
 
 /*
  * Description:
@@ -21,20 +20,20 @@ MCP23S17::MCP23S17(uint8_t SPI_channel)
     this->spi_channel = SPI_channel;
     this->spi_dev = new SPI(SPI_channel, SPI_SPEED, SPI_MODE, SPI_BPW);
     this->dev_mode = OUTPUT_DEV;
-    this->addr = OUTPUT_DEV_ADDR;
+    this->addr = DEV_ADDR;
 }
 
 /*
  * Description:
  * Constructor for input device
  */
-MCP23S17::MCP23S17(uint8_t SPI_channel, callback *INT_callback, pthread_t id):Thread(id)
+MCP23S17::MCP23S17(uint8_t SPI_channel, callback *INT_callback_func, pthread_t id):Thread(id)
 {
-    this->INT_handler = INT_callback;
+    this->INT_callback = INT_callback_func;
     this->spi_channel = SPI_channel;
     this->spi_dev = new SPI(SPI_channel, SPI_SPEED, SPI_MODE, SPI_BPW);
     this->dev_mode = INPUT_DEV;
-    this->addr = INPUT_DEV_ADDR;
+    this->addr = DEV_ADDR;
 }
 
 /*
@@ -81,6 +80,21 @@ int8_t MCP23S17::init(void)
     // This is a input device
     else
     {
+        // set GPIOA and GPIOB as input
+        this->write_reg(this->addr, IODIRA, 0xff);
+        this->write_reg(this->addr, IODIRB, 0xff);
+        // Enable pull-up resistors
+        this->write_reg(this->addr, GPPUA, 0xff);
+        this->write_reg(this->addr, GPPUB, 0xff);
+        // Open interrupt-on-change function
+        this->write_reg(this->addr, GPINTENA, 0xff);
+        this->write_reg(this->addr, GPINTENB, 0xff);
+        // Compare pin values with DEFVAL register
+        //this->write_reg(this->addr, INTCONA, 0xff);
+        //this->write_reg(this->addr, INTCONB, 0xff);
+        // Set DEFVAL register
+        //this->write_reg(this->addr, DEFVALA, 0xff);
+        //this->write_reg(this->addr, DEFVALB, 0xff);
     }
     
     return 0;
@@ -157,10 +171,18 @@ void MCP23S17::run(void)
             status = read(fds[0].fd, &val, 1);
             if(status)
             {
-                this->INT_handler->cb_func((uint8_t *)&val, 1);
+                this->INT_handler(val);
             }
         }
     }
+}
+
+void MCP23S17::INT_handler(uint8_t val)
+{
+    uint8_t buffer[2];
+    buffer[0] = ~this->read_reg(this->addr, GPIOA);
+    buffer[1] = ~this->read_reg(this->addr, GPIOB);
+    this->INT_callback->cb_func(buffer, 2);
 }
 
 /*

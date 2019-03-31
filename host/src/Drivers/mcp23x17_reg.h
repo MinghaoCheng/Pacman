@@ -20,7 +20,7 @@
 #define IOCON                   0x0A
 #define IOCONB                  0x0B
 #define GPPUA                   0x0C
-#define GPPUB                   0x0C
+#define GPPUB                   0x0D
 #define INTFA                   0x0E
 #define INTFB                   0x0F
 #define INTCAPA                 0x10

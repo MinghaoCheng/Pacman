@@ -30,7 +30,7 @@ class LED_matrix:public Thread
     timer_t timerid;
     static void TIMER_handler(int sig, siginfo_t *si, void *uc);
     void run(void);
-    uint8_t v_buffer[LED_matrix_Row];
+    uint8_t v_buffer[LED_MATRIX_ROW];
     uint8_t row;
 };
 

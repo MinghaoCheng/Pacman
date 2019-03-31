@@ -32,7 +32,7 @@ class MCP23S17:public Thread
 {
     public:
     MCP23S17(uint8_t SPI_channel);
-    MCP23S17(uint8_t SPI_channel, callback *INT_callback, pthread_t id);
+    MCP23S17(uint8_t SPI_channel, callback *INT_callback_func, pthread_t id);
     virtual ~MCP23S17();
 	
     int8_t init(void);
@@ -46,9 +46,10 @@ class MCP23S17:public Thread
     uint8_t addr;
     static void Reset(void);
     void run(void);
+    void INT_handler(uint8_t val);
     void write_reg(uint8_t address, uint8_t reg, uint8_t value);
     uint8_t read_reg(uint8_t address, uint8_t reg);
-    callback *INT_handler;
+    callback *INT_callback;
 };
 
 #endif

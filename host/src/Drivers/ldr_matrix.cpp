@@ -29,7 +29,7 @@ void LDR_matrix::run(void)
 
 void LDR_matrix::cb_func(uint8_t *param, uint8_t size)
 {
-    //printf("LDR call_back!\n");
+    printf("LDR: INT call_back, GPIOA = %x, GPIOB = %x\n", param[0], param[1]);
     uint8_t temp,buf[2];
     // row
     if(param[0]&0x0f)
@@ -50,7 +50,7 @@ void LDR_matrix::cb_func(uint8_t *param, uint8_t size)
     }
     // column
     temp = param[0]|param[1];
-    for(uint8_t i=0; i<LED_LDR_GPIO_WIDTH; i++)
+    for(uint8_t i=0; i<LDR_GPIO_WIDTH; i++)
     {
         if(temp == 1<<i)
         {

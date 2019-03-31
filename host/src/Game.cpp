@@ -57,7 +57,7 @@ void Game::cb_func(uint8_t *param, uint8_t size)
 {
     uint8_t row = param[0];
     uint8_t column = param[1];
-    
+    printf("Game: Dots eaten, row = %d, column = %d\n",param[0],param[1]);
     this->vram[row] &= ~(1<<column);
 }
 

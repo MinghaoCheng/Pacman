@@ -66,7 +66,7 @@ void LED_matrix::run(void)
     // pass param when signal happens
     sigqueue(getpid(), SIGALRM, sigval);
     //signal(SIGALRM);
-    ualarm(LED_row_refresh_period_us, LED_ROW_REFRESH_PERIOD_US);
+    ualarm(LED_ROW_REFRESH_PERIOD_US, LED_ROW_REFRESH_PERIOD_US);
     while(1)
     {
         sleep(1);
