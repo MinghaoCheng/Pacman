@@ -1,3 +1,9 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE
+ * Version 1, Mar 2019
+ *
+ * (C) 2019, Minghao Cheng <chengminghao92@gmail.com>
+ */
 #ifndef _LED_MATRIX_H_
 #define _LED_MATRIX_H_
 
@@ -17,6 +23,10 @@
  * row3
  */
 
+/*
+ * Description:
+ * Class of LED matrix
+ */
 class LED_matrix:public Thread
 {
     public:

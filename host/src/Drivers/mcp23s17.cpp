@@ -1,3 +1,9 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE
+ * Version 1, Feb 2019
+ *
+ * (C) 2019, Minghao Cheng <chengminghao92@gmail.com>
+ */
 #include "mcp23s17.h"
 #include "mcp23x17_reg.h"
 

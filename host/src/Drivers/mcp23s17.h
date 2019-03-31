@@ -1,3 +1,9 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE
+ * Version 1, Feb 2019
+ *
+ * (C) 2019, Minghao Cheng <chengminghao92@gmail.com>
+ */
 #ifndef _MCP23S17_H_
 #define _MCP23S17_H_
 
@@ -26,7 +32,7 @@ typedef enum
 
 /*
  * Decription:
- * MCP23S17 driver
+ * Class of MCP23S17 driver
  */
 class MCP23S17:public Thread
 {
