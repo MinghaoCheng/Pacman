@@ -6,6 +6,8 @@
  */
 #include "led_matrix.h"
 
+LED_matrix* LED_matrix::addr = NULL;
+
 /*
  * Description:
  * Constructor
@@ -14,8 +16,8 @@
  */
 LED_matrix::LED_matrix(pthread_t ID):Thread(ID)
 {
-    this->row = 1;
     this->GPIO = new MCP23S17(LED_GPIO_SPI_CHANNEL);
+    LED_matrix::addr = this;
 }
 
 /*
@@ -38,17 +40,22 @@ int8_t LED_matrix::init(void)
 
 /*
  * Description:
- * Write values of the led matrix
- * Param:
- * Values of rows, from row[0] to row[LED_MATRIX_ROW - 1], LED_MATRIX_COLUMN bits are valid in each row.
+ * Write value of a row to the green led matrix
  */
-void LED_matrix::write_val(uint8_t *row)
+void LED_matrix::write_green(uint8_t row, uint8_t val)
 {
-    uint8_t i;
-    for (i=0; i<LED_MATRIX_ROW; i++)
-    {
-        this->v_buffer[i] = row[i];
-    }
+    this->v_buffer[row] &= 0xf0;
+    this->v_buffer[row] |= row_val[i];
+}
+
+/*
+ * Description:
+ * Write value of a row to the red led matrix
+ */
+void LED_matrix::write_red(uint8_t row, uint8_t val)
+{
+    this->v_buffer[row] &= 0x0f;
+    this->v_buffer[row] |= row_val[i]<<4;
 }
 
 /*
@@ -57,15 +64,21 @@ void LED_matrix::write_val(uint8_t *row)
  */
 void LED_matrix::refresh(void)
 {
-    // write value to GPIO
-    this->GPIO->Set_GPIOA(1 << this->row);
-    // PNP transistors here
-    this->GPIO->Set_GPIOB(~this->v_buffer[this->row]);
+    static uint8_t row_index = 0;
+    
+    // write value to GPIOA,PNP transistors here
+    this->GPIO->Set_GPIOA(
+                         ~(
+                            (1 << row_index)|(1 << (row_index+LED_MATRIX_ROW))
+                          )
+                        );
+    // write value to GPIOB,NPN transistors here
+    this->GPIO->Set_GPIOB(this->v_buffer(row_index));
     // switch to next row
-    this->row++;
-    if(this->row == LED_MATRIX_ROW)
+    row_index++;
+    if(row_index == LED_MATRIX_ROW)
     {
-        this->row = 0;
+        row_index = 0;
     }
 }
 
@@ -75,10 +88,11 @@ void LED_matrix::refresh(void)
  */
 void LED_matrix::TIMER_handler(int sig, siginfo_t *si, void *uc)
 {
-    if(si != NULL)
-    {
-        (reinterpret_cast<LED_matrix *> (si->si_value.sival_ptr))->refresh();
-    }
+    LED_matrix::addr->refresh();
+    //if(si->si_value.sival_ptr == LED_matrix::addr)
+    //{
+    //    (reinterpret_cast<LED_matrix *> (si->si_value.sival_ptr))->refresh();
+    //}
 }
 
 /*
@@ -97,24 +111,24 @@ void LED_matrix::run(void)
     // sigaction, allow user to pass param to handler
     struct sigaction sa;
     // custom param which would be passed to handler
-    union sigval sigval;
+    //union sigval sigval;
     // allow param to be passed
     sa.sa_flags = SA_SIGINFO;
     sa.sa_sigaction = LED_matrix::TIMER_handler;
     // pass the pointer of this instance
-    sigval.sival_ptr = this;
+    //sigval.sival_ptr = this;
     // block no signal
     sigemptyset(&sa.sa_mask);
     sigaddset(&sa.sa_mask, SIGALRM);
     // register signal handler
     sigaction(SIGALRM, &sa, NULL);
     // pass param when signal happens
-    sigqueue(getpid(), SIGALRM, sigval);
+    //sigqueue(getpid(), SIGALRM, sigval);
     //signal(SIGALRM);
     ualarm(LED_ROW_REFRESH_PERIOD_US, LED_ROW_REFRESH_PERIOD_US);
     while(1)
     {
-        sleep(1);
+        sleep(100);
     }
 }
 

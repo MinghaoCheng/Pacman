@@ -16,11 +16,22 @@
 #include "mcp23s17.h"
 #include "../util/Thread.h"
 
-/*      column0  column1  column2  column3
- * row0
- * rOW1
- * row2
- * row3
+/*          Green
+ *                  GPIOB.0  GPIOB.1  GPIOB.2  GPIOB.3
+ *                  column0  column1  column2  column3
+ * GPIOA.3  row3
+ * GPIOA.2  row2
+ * GPIOA.1  row1 
+ * GPIOA.0  row0
+ */
+ 
+/*          Red
+ *                  GPIOB.4  GPIOB.5  GPIOB.6  GPIOB.7
+ *                  column0  column1  column2  column3
+ * GPIOA.7  row3
+ * GPIOA.6  row2
+ * GPIOA.5  row1 
+ * GPIOA.4  row0
  */
 
 /*
@@ -33,15 +44,17 @@ class LED_matrix:public Thread
     LED_matrix(pthread_t ID);
     virtual ~LED_matrix();
     int8_t init(void);
-    void write_val(uint8_t *row_val);
-    void refresh(void);
+    void write_green(uint8_t row, uint8_t val);
+    void write_red(uint8_t row, uint8_t val);
+    
     private:
     MCP23S17 *GPIO;
     timer_t timerid;
     static void TIMER_handler(int sig, siginfo_t *si, void *uc);
+    static LED_matrix *addr;
+    void refresh(void);
     void run(void);
-    uint8_t v_buffer[LED_MATRIX_ROW];
-    uint8_t row;
+    uint8_t v_buffer = [LED_MATRIX_ROW<<1];
 };
 
 

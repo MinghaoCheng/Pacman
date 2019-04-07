@@ -28,11 +28,12 @@
 class LDR_matrix: public callback
 {
     public:
-    LDR_matrix(callback *INT_callback);
+    LDR_matrix(pthread_t ID, callback *INT_callback);
     virtual ~LDR_matrix(void);
     int8_t init(void);
     
     private:
+    pthread_t id;
     MCP23S17 *GPIO;
     virtual void cb_func(uint8_t *param, uint8_t size);
     callback *INT_handler;
