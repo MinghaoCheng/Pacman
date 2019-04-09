@@ -31,6 +31,6 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 host - control the game logic, led matrix, LDR matrix, car (through Wi-Fi)
 
 dependency:
-sudo apt-get install alsa-utils
-sudo apt-get install libasound2-dev
+~~sudo apt-get install alsa-utils~~
+~~sudo apt-get install libasound2-dev~~
 car  - work as Pacman
