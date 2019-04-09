@@ -95,7 +95,9 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
     **:In this project, the panel was made of a cardboard.
 ## Assemble
 ## Software
-
+* There are two source codes in this project. One works on the host and another one works on the car.  
+* The software of the host contains a kernel module which would work as the driver of the GPIO(it handles GPIO interrupt and output of the GPIO used by the host), and it contains the main codes which works in the user space. There are several components of this software, see details at [Docs](/Docs/software/host)  
+* The software of the car controls the motor using L298N through GPIO, and it also receives instructions from the host over TCP/IP through Wi-Fi connection. See details at [Docs](/Docs/software/car)   
 ## Found a bug<a name="found_a_bug">
      
 ## License
