@@ -6,7 +6,7 @@ ENG5220, Embedded real-time programming project, Team19
 |E-mail|2359434c@student.gla.ac.uk
 ****
 
-# Motivation& Introduction
+## Motivation& Introduction
 
 As a classic computer game, Pacman impressed lots of people. Now we can do a Pacman game in real life!
 
