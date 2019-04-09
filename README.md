@@ -22,13 +22,11 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 
 
 ### Build&Install
-
-
+To build the software of host: on host raspberryPi, type "./build_host.sh" in terminal.
+To install the software of host:type "sudo ./install_host.sh" in terminal. (Only the kernel module needs to be installed)
 ### Hardware
 
 ### Software
-
-host - control the game logic, led matrix, LDR matrix, car (through Wi-Fi)
 
 dependency:
 ~~sudo apt-get install alsa-utils~~
