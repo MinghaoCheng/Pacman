@@ -18,12 +18,9 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 * [Build&Install](#Build&Install)
 * [Hardware](#Hardware)
 * [Software](#software)
-
-
-
 ### Build&Install
-To build the software of host: on host raspberryPi, type "./build_host.sh" in terminal.
-To install the software of host:type "sudo ./install_host.sh" in terminal. (Only the kernel module needs to be installed)
+    To build the software of host: on host raspberryPi, type "./build_host.sh" in terminal.
+    To install the software of host:type "sudo ./install_host.sh" in terminal. (Only the kernel module needs to be installed)
 ### Hardware
 
 ### Software
