@@ -20,7 +20,7 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 * [Software](#software)
 * [Found a problem?](#found_a_problem?)
 * [License](#license)
-### Getting started <a name="getting_started"></a>
+## Getting started <a name="getting_started"></a>
 1. Buiding hardware  
       Hardware contains PCBs, mechanics, sodering, see [Hardware](#hardware) for details.  
 2. Built& install software  
@@ -35,11 +35,11 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
     2. Car  
       ~~To be added~~  
 4. Game rules  
-      Once the game starts(After the background music), the Pacdots(green LEDs) would all be on. The Pacman(the Car) would follow the instructions of keyboard connected to the host. If the Pacman eats a Pacdot (car hits the green LED), the LDR would give feedback to the host and shut down the corresponding LED. Meanwhile, a sound would give the player a feedback. The player would win the game when all Pacdots are eaten (a winning music would be played). There is only one ghost(red LED), which would move randomly, if the Pacman hits the ghost, the player will lose (a losing music would be played).
+      Once the game starts(After the background music), the Pacdots(green LEDs) would all be on. The Pacman(the Car) would follow the instructions of keyboard connected to the host. If the Pacman eats a Pacdot (car hits the green LED), the LDR would give feedback to the host and shut down the corresponding LED. Meanwhile, a sound would give the player a feedback. The player would win the game when all Pacdots are eaten (a winning music would be played). There is only one ghost(red LED), which would move randomly, if the Pacman hits the ghost, the player will lose (a losing music would be played).  
 5. Have fun!  
 
-### Hardware
-1. Required components(BOM)
+## Hardware
+### 1. Required components(BOM)
 * host_0 board
 
 |Component|Quantity|Farnell code|
