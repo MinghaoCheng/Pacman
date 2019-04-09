@@ -17,7 +17,20 @@ This project uses a game panel which contains two 4x4 LED matrices. One of them 
 
 There is a car controlled by a raspberryPi which acts as Pacman. It can move around upon the pannel, eat Pacdots and hide from the Ghost.
 
-===========================
+## Table of contents
+* [Build&Install](#Build&Install)
+* [Hardware](#Hardware)
+* [Software](#software)
+
+
+
+### Build&Install
+
+
+### Hardware
+
+### Software
+
 host - control the game logic, led matrix, LDR matrix, car (through Wi-Fi)
 
 dependency:
