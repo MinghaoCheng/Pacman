@@ -16,9 +16,11 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 
 ## Table of contents
 * [Getting started](#getting_started)
-* [Hardware](#hardware)
+* [System overview](#system_overview)
+* [Required components(BOM)](#required_components(BOM))
+* [Assemble](#assemble)
 * [Software](#software)
-* [Found a problem?](#found_a_problem?)
+* [Found a bug](#found_a_bug)
 * [License](#license)
 ## Getting started <a name="getting_started"></a>
 1. Buiding hardware  
@@ -38,8 +40,9 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
       Once the game starts(After the background music), the Pacdots(green LEDs) would all be on. The Pacman(the Car) would follow the instructions of keyboard connected to the host. If the Pacman eats a Pacdot (car hits the green LED), the LDR would give feedback to the host and shut down the corresponding LED. Meanwhile, a sound would give the player a feedback. The player would win the game when all Pacdots are eaten (a winning music would be played). There is only one ghost(red LED), which would move randomly, if the Pacman hits the ghost, the player will lose (a losing music would be played).  
 5. Have fun!  
 
-## Hardware
-### 1. Required components(BOM)
+## System overview<a name="system_overview"></a>
+
+## Required components(BOM)<a name="required_components(BOM)"></a>
 * host_0 board
 
 |Component|Quantity|Farnell code|
@@ -66,7 +69,7 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 |Capacitor, 0.1uF, C0603|1|2280842
 |Resistor,200Ω,R0805*|8|1894175
 
-*:optional,depends on the impedence of the LEDs  
+    *:optional,depends on the impedence of the LEDs  
 
 * car_0 board
 
@@ -88,14 +91,14 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 |Wires|N/A|
 |Panel**|1|
 
-*:could use any LEDs under 100mA, but the resistors on host_1 board needs to be adjusted  
-**:In this project, the panel was made of a cardboard.
+    *:could use any LEDs under 100mA, but the resistors on host_1 board needs to be adjusted  
+    **:In this project, the panel was made of a cardboard.
+## Assemble
+## Software
 
-### Software
-
-### Found a problem?<a name="found_a_problem?">
+## Found a bug<a name="found_a_bug">
      
-### License
+## License
 
 dependency:
 ~~sudo apt-get install alsa-utils~~
