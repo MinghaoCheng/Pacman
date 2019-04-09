@@ -1,3 +1,4 @@
+![Logo](/Docs/pictures/pacman-logo.gif)
 # Pacman
 ENG5220, Embedded real-time programming project, Team19
 
