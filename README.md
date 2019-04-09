@@ -20,20 +20,16 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 * [Software](#software)
 ### Getting started <a name="getting_started"></a>
 1. Buiding hardware
-    Hardware contains PCBs, mechanics, sodering, see [Hardware](#hardware) for details.
+    Hardware contains PCBs, mechanics, sodering, see [Hardware](#hardware) for details.  
 2. Built& install software
-    1. Host
-    To build the software of host: on host raspberryPi, type "./build_host.sh" in terminal.
-    
-    To install the software of host:type "sudo ./install_host.sh" in terminal. (Only the kernel module needs to be installed)
-    
-    2. Car
-    
-    ~~To be added~~
+    1. Host  
+        To build the software of host: on host raspberryPi, type "./build_host.sh" in terminal.  
+        To install the software of host:type "sudo ./install_host.sh" in terminal. (Only the kernel module needs to be installed)  
+    2. Car  
+    ~~To be added~~  
 3. Execute the programme
-    1. Host
-    
-    type "sudo ./host" in terminal. (Because this programme would access the kernel module, so it requires super_user)
+    1. Host  
+        type "sudo ./host" in terminal. (Because this programme would access the kernel module, so it requires super_user)  
     2. Car
     
     ~~To be added~~
