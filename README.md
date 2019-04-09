@@ -20,21 +20,21 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 * [Software](#software)
 ### Getting started <a name="getting_started"></a>
 1. Buiding hardware
-    * Hardware contains PCBs, mechanics, sodering, see [Hardware](#hardware) for details.  
+      * Hardware contains PCBs, mechanics, sodering, see [Hardware](#hardware) for details.  
 2. Built& install software
     1. Host  
-* To build the software of host: on host raspberryPi, type "./build_host.sh" in terminal.  
-* To install the software of host:type "sudo ./install_host.sh" in terminal. (Only the kernel module needs to be installed)  
+      * To build the software of host: on host raspberryPi, type "./build_host.sh" in terminal.  
+      * To install the software of host:type "sudo ./install_host.sh" in terminal. (Only the kernel module needs to be installed)  
     2. Car  
-* ~~To be added~~  
+      * ~~To be added~~  
 3. Execute the programme
     1. Host  
-* type "sudo ./host" in terminal. (Because this programme would access the kernel module, so it requires super_user)  
+      * type "sudo ./host" in terminal. (Because this programme would access the kernel module, so it requires super_user)  
     2. Car
     
 * ~~To be added~~
 4. Game rules
-* Once the game starts(After the background music), the Pacdots(green LEDs) would all be on. The Pacman(the Car) would follow the instructions of keyboard connected to the host. If the Pacman eats a Pacdot (car hits the green LED), the LDR would give feedback to the host and shut down the corresponding LED. Meanwhile, a sound would give the player a feedback. The player would win the game when all Pacdots are eaten (a winning music would be played). There is only one ghost(red LED), which would move randomly, if the Pacman hits the ghost, the player will lose (a losing music would be played).
+      * Once the game starts(After the background music), the Pacdots(green LEDs) would all be on. The Pacman(the Car) would follow the instructions of keyboard connected to the host. If the Pacman eats a Pacdot (car hits the green LED), the LDR would give feedback to the host and shut down the corresponding LED. Meanwhile, a sound would give the player a feedback. The player would win the game when all Pacdots are eaten (a winning music would be played). There is only one ghost(red LED), which would move randomly, if the Pacman hits the ghost, the player will lose (a losing music would be played).
 5. Have fun!
 ### Hardware
 
