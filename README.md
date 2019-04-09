@@ -15,12 +15,12 @@ This project uses a game panel which contains two 4x4 LED matrices. One of them 
 There is a car controlled by a raspberryPi which acts as Pacman. It can move around upon the pannel, eat Pacdots and hide from the Ghost.
 
 ## Table of contents
-* [Getting started](#Getting started)
-* [Hardware](#Hardware)
+* [Getting started](#getting started)
+* [Hardware](#hardware)
 * [Software](#software)
 ### Getting started
 1. Buiding hardware
-    Hardware contains PCBs, mechanics, sodering, see [Hardware](#Hardware) for details.
+    Hardware contains PCBs, mechanics, sodering, see [Hardware](#hardware) for details.
 2. Built& install software
     2.1 Host
     To build the software of host: on host raspberryPi, type "./build_host.sh" in terminal.
