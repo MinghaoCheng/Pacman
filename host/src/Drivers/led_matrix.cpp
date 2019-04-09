@@ -45,7 +45,7 @@ int8_t LED_matrix::init(void)
 void LED_matrix::write_green(uint8_t row, uint8_t val)
 {
     this->v_buffer[row] &= 0xf0;
-    this->v_buffer[row] |= row_val[i];
+    this->v_buffer[row] |= val;
 }
 
 /*
@@ -55,7 +55,7 @@ void LED_matrix::write_green(uint8_t row, uint8_t val)
 void LED_matrix::write_red(uint8_t row, uint8_t val)
 {
     this->v_buffer[row] &= 0x0f;
-    this->v_buffer[row] |= row_val[i]<<4;
+    this->v_buffer[row] |= val<<4;
 }
 
 /*
@@ -73,7 +73,7 @@ void LED_matrix::refresh(void)
                           )
                         );
     // write value to GPIOB,NPN transistors here
-    this->GPIO->Set_GPIOB(this->v_buffer(row_index));
+    this->GPIO->Set_GPIOB(this->v_buffer[row_index]);
     // switch to next row
     row_index++;
     if(row_index == LED_MATRIX_ROW)

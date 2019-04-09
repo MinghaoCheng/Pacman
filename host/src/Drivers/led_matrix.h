@@ -54,7 +54,7 @@ class LED_matrix:public Thread
     static LED_matrix *addr;
     void refresh(void);
     void run(void);
-    uint8_t v_buffer = [LED_MATRIX_ROW<<1];
+    uint8_t v_buffer[LED_MATRIX_ROW];
 };
 
 

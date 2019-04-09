@@ -24,7 +24,7 @@ find_package(ALSA REQUIRED)
 include_directories(${ALSA_INCLUDE_DIRS})
 
 # set exe output path
-set(EXECUTABLE_OUTPUT_PATH ${PROJ_DIR})
+# set(EXECUTABLE_OUTPUT_PATH ${PROJ_DIR})
 
 # add exe
 add_executable(host ${MAIN_SRC} ${DRIVER_SRC} ${UTIL_SRC})
