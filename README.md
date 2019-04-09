@@ -17,6 +17,8 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 * [Getting started](#getting_started)
 * [Hardware](#hardware)
 * [Software](#software)
+* [Found a problem?](#found_a_problem?)
+* [License](#license)
 ### Getting started <a name="getting_started"></a>
 1. Buiding hardware
       * Hardware contains PCBs, mechanics, sodering, see [Hardware](#hardware) for details.  
@@ -38,6 +40,10 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 ### Hardware
 
 ### Software
+
+### Found a problem?<a name="found_a_problem?">
+     
+### License
 
 dependency:
 ~~sudo apt-get install alsa-utils~~
