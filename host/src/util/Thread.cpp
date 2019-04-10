@@ -37,7 +37,7 @@ Thread::~Thread()
  * Description:
  * Create& start the thread
  */
-void Thread::start(void)
+void Thread::thread_start(void)
 {
     if(0 != pthread_create(&this->id, NULL, &Thread::exe, this))
     {
@@ -49,7 +49,7 @@ void Thread::start(void)
  * Description:
  * Thread join
  */
-void Thread::join(void)
+void Thread::thread_join(void)
 {
     pthread_join(this->id, NULL);
 }
@@ -58,7 +58,7 @@ void Thread::join(void)
  * Description:
  * Real function of the thread, in this way it could be a non-static member function
  */
-void Thread::run(void)
+void Thread::thread_handler(void)
 {
     
 }

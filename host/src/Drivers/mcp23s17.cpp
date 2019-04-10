@@ -155,7 +155,7 @@ void MCP23S17::Reset(void)
  * Description:
  * Thread function, poll the Pac_dev device file and handle INT
  */
-void MCP23S17::run(void)
+void MCP23S17::thread_handler(void)
 {
     char status, val;
     

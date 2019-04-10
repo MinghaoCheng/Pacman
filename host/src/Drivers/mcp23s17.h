@@ -51,7 +51,7 @@ class MCP23S17:public Thread
     uint8_t spi_channel;
     uint8_t addr;
     static void Reset(void);
-    void run(void);
+    void thread_handler(void);
     void INT_handler(uint8_t val);
     void write_reg(uint8_t address, uint8_t reg, uint8_t value);
     uint8_t read_reg(uint8_t address, uint8_t reg);

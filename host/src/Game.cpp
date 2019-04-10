@@ -37,7 +37,7 @@ uint8_t Game::init(void)
 
 void Game::reset(void)
 {
-    for (uint8_t i = 0; i < LED_MATRIX_ROW; i++)
+    for (uint8_t i = 0; i < GAME_PANEL_MATRIX_ROW; i++)
     {
         this->v_buffer[i][0] = 0xff;
         this->v_buffer[i][1] = 0x00;
@@ -51,12 +51,18 @@ void Game::reset(void)
     this->car_position.Is_upon_dot = false;
     this->car_position.column = 0;
     this->car_position.row = 0;
+    // reset the position of the ghost
+    this->ghost_position.column = GAME_PANEL_MATRIX_COLUMN - 1;
+    this->ghost_position.row = GAME_PANEL_MATRIX_ROW - 1;
+    // play start music
+    // this->sound_dev->play_start();
 }
 
-void Game::run(void)
+void Game::thread_handler(void)
 {
     this->reset();
-    this->led_matrix->start();
+    this->led_matrix->thread_start();
+    this->start_timer();
     printf("Game: Start\n");
     while(1)
     {
@@ -67,32 +73,68 @@ void Game::run(void)
 void Game::cb_func(uint8_t *param, uint8_t size)
 {
     int8_t status;
-    for(uint8_t i=0; i<size; i++)
+    // called by keyboard
+    if(size == 1)
     {
-        this->v_buffer[i][2] = param[i];
+        // send corresponding instruction to the car
+        // ........
+        // reset game
+        // ........
     }
-    // update position of the car
-    
-    // check game status
-    status = game_status();
-    switch(status)
+    // called by LDR matrix
+    else
     {
-        case 0:
+        for(uint8_t i=0; i<size; i++)
         {
-            // no event triggered
-            break;
+            this->v_buffer[i][2] = param[i];
         }
-        case 1:
+        // update position of the car
+        for(uint8_t i=0; i<GAME_PANEL_MATRIX_ROW; i++)
         {
-            // all dots are eaten, game complete
-            break;
+            if(this->v_buffer)
+            {
+                this->car_position.row = i;
+                for(uint8_t j=0; j<GAME_PANEL_MATRIX_COLUMN; j++)
+                {
+                    if(this->v_buffer[this->car_position.row] == 1<<j)
+                    {
+                        this->car_position.column = j;
+                        break;
+                    }
+                }
+                break;
+            }
         }
-        case -1:
+        // check game status
+        status = game_status();
+        switch(status)
         {
-            // pacman is catched by monster, game over
-            break;
+            case 0:
+            {
+                // no event triggered
+                break;
+            }
+            case 1:
+            {
+                // all dots are eaten, game complete
+                // play winning music
+                // this->sound_dev->play_win();
+                break;
+            }
+            case -1:
+            {
+                // pacman is catched by monster, game over
+                // play losing music
+                // this->sound_dev->play_lost();
+                break;
+            }
         }
     }
+}
+
+void Game::timerEvent(void)
+{
+    this->monster_update();
 }
 
 int8_t Game::game_status(void)
@@ -109,7 +151,7 @@ int8_t Game::game_status(void)
         val = 1;
     }
     // check whether the car is hit by the monster
-    if(this->v_buffer[this->car_position.row][1] == 1<<this->car_position.column)
+    if(this->car_position.column == this->ghost_position.column && this->car_position.row == this->ghost_position.row)
     {
         val = -1;
     }
@@ -118,5 +160,29 @@ int8_t Game::game_status(void)
 
 void Game::monster_update(void)
 {
+    static bool move_column = true;
+    if(move_column && this->ghost_position.column != this->car_position.column)
+    {
+        if(this->ghost_position.column > this->car_position.column)
+        {
+            this->ghost_position.column += 1;
+        }
+        else if(this->ghost_position.column < this->car_position.column)
+        {
+            this->ghost_position.column -= 1;
+        }
+    }
+    else
+    {
+        if(this->ghost_position.row > this->car_position.row)
+        {
+            this->ghost_position.column += 1;
+        }
+        else if(this->ghost_position.row < this->car_position.row)
+        {
+            this->ghost_position.column -= 1;
+        }
+    }
+    move_column = ~move_column;
     
 }

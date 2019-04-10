@@ -53,7 +53,7 @@ class LED_matrix:public Thread
     static void TIMER_handler(int sig, siginfo_t *si, void *uc);
     static LED_matrix *addr;
     void refresh(void);
-    void run(void);
+    void thread_handler(void);
     uint8_t v_buffer[LED_MATRIX_ROW];
 };
 

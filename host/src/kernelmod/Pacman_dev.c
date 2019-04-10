@@ -83,11 +83,11 @@ static const struct file_operations Pacman_fops =
 /**********************IRQ handler******************************/
 static irqreturn_t irq_handler(int irq, void *dev)
 {
-    if (irq == 170)         // INT A
+    if (INTA_PIN == irq_to_gpio(irq))         // INT A
     {
         INT_flag |= 0x01;
     }
-    else if (irq == 169)    // INT B
+    else if (INTB_PIN == irq_to_gpio(irq))    // INT B
     {
         INT_flag |= 0x02;
     }

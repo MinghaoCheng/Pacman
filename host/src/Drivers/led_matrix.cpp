@@ -106,7 +106,7 @@ void LED_matrix::TIMER_handler(int sig, siginfo_t *si, void *uc)
  *       3. start the ULARM timer
  *
  */
-void LED_matrix::run(void)
+void LED_matrix::thread_handler(void)
 {
     // sigaction, allow user to pass param to handler
     struct sigaction sa;

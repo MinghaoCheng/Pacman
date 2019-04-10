@@ -21,11 +21,11 @@ class Thread
     Thread(pthread_t ID);
     ~Thread();
     
-    void start(void);
-    void join(void);
+    void thread_start(void);
+    void thread_join(void);
     
     protected:
-    virtual void run(void);
+    virtual void thread_handler(void);
     
     private:
     pthread_t id;

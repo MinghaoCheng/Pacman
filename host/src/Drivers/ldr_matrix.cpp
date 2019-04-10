@@ -38,7 +38,7 @@ int8_t LDR_matrix::init(void)
     {
         return -1;
     }
-    this->GPIO->start();
+    this->GPIO->thread_start();
     return 0;
 }
 
