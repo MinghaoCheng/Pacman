@@ -102,6 +102,6 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
      
 ## License
 
-dependency:
-~~sudo apt-get install alsa-utils~~
-~~sudo apt-get install libasound2-dev~~
+dependency:  
+~~sudo apt-get install alsa-utils~~  
+~~sudo apt-get install libasound2-dev~~  
