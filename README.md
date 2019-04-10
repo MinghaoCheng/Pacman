@@ -94,6 +94,12 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
     *:could use any LEDs under 100mA, but the resistors on host_1 board needs to be adjusted  
     **:In this project, the panel was made of a cardboard.
 ## Assemble
+* For PCBs of the host, connect them in the way as follow:
+
+[![host_brd0]](/Docs/pictures/host_brd0.jpg)
+
+[![host_brd1]](/Docs/pictures/host_brd1.jpg)
+
 ## Software
 * There are two source codes in this project. One works on the host and another one works on the car.  
 * The software of the host contains a kernel module which would work as the driver of the GPIO(it handles GPIO interrupt and output of the GPIO used by the host), and it contains the main codes which works in the user space. There are several components of this software, see details at [Docs](/Docs/software/host)  
