@@ -60,7 +60,7 @@ static unsigned int gpio_poll(struct file *file, poll_table *wait)
     if(INT_flag)
     {
         // mind to use POLLPRI in userspace
-        ret |=POLLPRI;
+        ret |= POLLPRI;
     }
     return ret;
 }
@@ -83,15 +83,15 @@ static const struct file_operations Pacman_fops =
 /**********************IRQ handler******************************/
 static irqreturn_t irq_handler(int irq, void *dev)
 {
-    if (INTA_PIN == irq_to_gpio(irq))         // INT A
+    if (irq == gpio_to_irq(INTA_PIN))         // INT A
     {
         INT_flag |= 0x01;
     }
-    else if (INTB_PIN == irq_to_gpio(irq))    // INT B
+    else if (irq == gpio_to_irq(INTB_PIN))    // INT B
     {
         INT_flag |= 0x02;
     }
-    printk(KERN_INFO "INT_NUM%d\n", irq);
+    // printk(KERN_INFO "INT flag == %x\n", INT_flag);
     wake_up_interruptible(&INT_waitq);
     return IRQ_HANDLED;
 }
