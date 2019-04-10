@@ -94,11 +94,19 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
     *:could use any LEDs under 100mA, but the resistors on host_1 board needs to be adjusted  
     **:In this project, the panel was made of a cardboard.
 ## Assemble
-* For PCBs of the host, connect them in the way as follow:
+* For PCBs of the host, connect them in the way as follow:  
 
-[![host_brd0]](/Docs/pictures/host_brd0.jpg)
+<div align=center><img width="400" height="400" src="/Docs/pictures/host_brd0.jpg"/></div>  
 
-[![host_brd1]](/Docs/pictures/host_brd1.jpg)
+<div align=center><img width="400" height="400" src="/Docs/pictures/host_brd1.jpg"/></div>  
+
+* For LED&LDR matrices, put one green LED, one red LED and one LDR at a single hole on the panel(There are 4x4 holes).  
+
+<div align=center><img width="400" height="400" src="/Docs/pictures/panel0.jpg"/></div>  
+
+* Soder green LED matrix and red LED matrix as follow, this schematic also can be found at [PCBs](/Docs/PCBs):
+
+<div align=center><img width="400" height="400" src="/Docs/pictures/LED_matrix0.jpg"/></div>  
 
 ## Software
 * There are two source codes in this project. One works on the host and another one works on the car.  
