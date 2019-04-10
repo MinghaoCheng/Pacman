@@ -23,7 +23,7 @@ class timer
     public:
 	timer();    
 	virtual ~timer();
-	void start_timer(uint32_t nanosecs);
+	void start_timer(uint64_t nanosecs);
 	virtual void timerEvent() = 0;
     private:
 	timer_t timerid;

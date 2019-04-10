@@ -19,11 +19,7 @@ int main(void)
         printf("Initialising failed\n");
         return -1;
     }
-    //signal(SIGALRM, led_refresh_handler);
-    //ualarm(LED_ROW_REFRESH_PERIOD_US, LED_ROW_REFRESH_PERIOD_US);
     game_instance.thread_start();
-    
-    //play_sound("/home/pi/Desktop/Pacman/host/1.wav");
     while(1)
     {
         sleep(100);

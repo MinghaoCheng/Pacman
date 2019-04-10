@@ -45,17 +45,21 @@ class MCP23S17:public Thread
     void Set_GPIOA(uint8_t val);
     void Set_GPIOB(uint8_t val);
 
+    static bool Is_reset;
+
     private:
     Dev_mode dev_mode;
     SPI *spi_dev;
     uint8_t spi_channel;
     uint8_t addr;
-    static void Reset(void);
+    void Reset(void);
     void thread_handler(void);
     void INT_handler(uint8_t val);
     void write_reg(uint8_t address, uint8_t reg, uint8_t value);
     uint8_t read_reg(uint8_t address, uint8_t reg);
     callback *INT_callback;
+    
+    struct pollfd fds;
 };
 
 #endif

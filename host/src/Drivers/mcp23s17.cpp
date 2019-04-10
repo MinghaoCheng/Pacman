@@ -17,6 +17,8 @@
 
 #define DEV_ADDR            0x0
 
+bool MCP23S17::Is_reset = false;
+
 /*
  * Description:
  * Constructor for output device
@@ -67,13 +69,13 @@ int8_t MCP23S17::init(void)
     }
     else
     {
-        printf("SPI init failed\n");
+        printf("MCP23S17: SPI init failed\n");
         return -1;
     }
     // test connection
     if((IOCON_SEQOP | IOCON_INTPOL) != this->read_reg(this->addr, IOCON))
     {
-        printf("GPIO extender testing failed, channel = %d\n", this->spi_channel);
+        printf("MCP23S17: GPIO extender testing failed, channel = %d\n", this->spi_channel);
         return -1;
     }    
     // This is a output device
@@ -101,6 +103,13 @@ int8_t MCP23S17::init(void)
         // Set DEFVAL register
         //this->write_reg(this->addr, DEFVALA, 0xff);
         //this->write_reg(this->addr, DEFVALB, 0xff);
+    }
+    // Open the device file
+    this->fds.fd = open("/dev/Pacman_dev", O_RDWR,S_IRUSR | S_IWUSR);
+    if(this->fds.fd == -1)
+    {
+        printf("MCP23S17: Pac_dev file open failed\n");
+        return -1;
     }
     
     return 0;
@@ -132,22 +141,20 @@ void MCP23S17::Set_GPIOB(uint8_t val)
  */
 void MCP23S17::Reset(void)
 {
-    static bool flag = false;
-    static int GPIO_fd;
     char val;
-    if(!flag)
+    if(!MCP23S17::Is_reset)
     {
-        flag = true;
-        GPIO_fd = open("/dev/Pacman_dev", O_RDWR,S_IRUSR | S_IWUSR);
-        if(GPIO_fd == -1)
-        {
-            printf("Pac_dev file open failed\n");
-        }
+        MCP23S17::Is_reset = true;
+        //GPIO_fd = open("/dev/Pacman_dev", O_RDWR,S_IRUSR | S_IWUSR);
+        //if(GPIO_fd == -1)
+        //{
+        //    printf("Pac_dev file open failed\n");
+        //}
         val = 0x00;
-        write(GPIO_fd, &val, 1);
+        write(this->fds.fd, &val, 1);
         usleep(10000);            //hold for 10 ms
         val = 0x01;
-        write(GPIO_fd, &val, 1);
+        write(this->fds.fd, &val, 1);
     }
 }
 
@@ -158,23 +165,15 @@ void MCP23S17::Reset(void)
 void MCP23S17::thread_handler(void)
 {
     char status, val;
-    
-    struct pollfd fds[1];
     int poll_ret;
     
-
-    fds[0].fd = open("/dev/Pacman_dev", O_RDWR,S_IRUSR | S_IWUSR);
-    if(fds[0].fd == -1)
-    {
-        printf("Pac_dev file open failed\n");
-    }
-    fds[0].events = POLLPRI;
+    this->fds.events = POLLPRI;
     while(1)
     {
-        poll_ret = poll(fds, 1, -1);
+        poll_ret = poll(&this->fds, 1, -1);
         if(poll_ret != 0)
         {
-            status = read(fds[0].fd, &val, 1);
+            status = read(this->fds.fd, &val, 1);
             if(status)
             {
                 this->INT_handler(val);

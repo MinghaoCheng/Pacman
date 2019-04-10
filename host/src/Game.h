@@ -15,11 +15,12 @@
 #include "util/timer.h"
 #include "Drivers/led_matrix.h"
 #include "Drivers/ldr_matrix.h"
+#include "Drivers/sound.h"
 #include "Game_config.h"
 
 struct Position
 {
-    uint8_t row,column;
+    int8_t row,column;
     bool Is_upon_dot;
 };
 
@@ -28,20 +29,21 @@ class Game:public Thread, public callback, public timer
     public:
     Game(pthread_t ID);
     ~Game(void);
-    uint8_t init(void);
+    int8_t init(void);
     void reset(void);
     
     private:
     // game logic
+    bool game_running;
     int8_t game_status(void);
     uint8_t v_buffer[GAME_PANEL_MATRIX_ROW][3];        //[:][0]-->Green, [:][1]-->Red,[:][2]-->Values of LDR matrix
     Position car_position;
     Position ghost_position;
-    void monster_update(void);
+    void ghost_position_update(void);
     // hardwares
     LED_matrix *led_matrix;
     LDR_matrix *ldr_matrix;
-    //Sound_dev *sound_dev;
+    Sound_dev *sound_dev;
     //Keyboard *key;
     
     pthread_t id;
