@@ -4,8 +4,12 @@
  *
  * (C) 2019, Minghao Cheng <chengminghao92@gmail.com>
  */
+#ifndef _SOUND_H_
+#define _SOUND_H_
+
 #include <stdlib.h>
 #include <stdint.h>
+/*
 #include <alsa/asoundlib.h>
 
 unsigned char metadata[44];
@@ -49,3 +53,6 @@ void play_sound(const char* name)
     printf("  %s\n",
            snd_pcm_state_name((snd_pcm_state_t)val));
 }
+*/
+
+#endif

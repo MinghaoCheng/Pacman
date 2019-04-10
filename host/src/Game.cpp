@@ -62,7 +62,7 @@ void Game::thread_handler(void)
 {
     this->reset();
     this->led_matrix->thread_start();
-    this->start_timer();
+    this->start_timer(GHOST_UPDATE_PERIOD_NS);
     printf("Game: Start\n");
     while(1)
     {
@@ -96,7 +96,7 @@ void Game::cb_func(uint8_t *param, uint8_t size)
                 this->car_position.row = i;
                 for(uint8_t j=0; j<GAME_PANEL_MATRIX_COLUMN; j++)
                 {
-                    if(this->v_buffer[this->car_position.row] == 1<<j)
+                    if(this->v_buffer[this->car_position.row][2] == 1<<j)
                     {
                         this->car_position.column = j;
                         break;

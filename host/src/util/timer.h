@@ -8,14 +8,15 @@
  * 
  */
 
+#ifndef _TIMER_H_
+#define _TIMER_H_
+
+#include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
 #include <time.h>
-
-#ifndef _TIMER_H_
-#define _TIMER_H_
 
 class timer
 {

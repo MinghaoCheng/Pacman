@@ -10,7 +10,7 @@ timer::timer()
 {
     // We create a static handler catches the signal SIG
     this->sa.sa_flags = SA_SIGINFO;
-    this->sa.sa_sigaction = handler;
+    this->sa.sa_sigaction = timer::timer_handler;
     sigemptyset(&this->sa.sa_mask);
     if (sigaction(SIGRTMIN, &this->sa, NULL) == -1)
         throw("Could not create signal handler");

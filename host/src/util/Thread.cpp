@@ -69,6 +69,6 @@ void Thread::thread_handler(void)
  */
 void *Thread::exe(void *param)
 {
-    reinterpret_cast<Thread *> (param)->run();
+    reinterpret_cast<Thread *> (param)->thread_start();
     return NULL;
 }

@@ -28,5 +28,5 @@ find_package (Threads)
 
 # add exe
 add_executable(host ${MAIN_SRC} ${DRIVER_SRC} ${UTIL_SRC})
-target_link_libraries (host ${CMAKE_THREAD_LIBS_INIT})
-#target_link_libraries (host ${CMAKE_THREAD_LIBS_INIT} ${ALSA_LIBRARIES} -rt)
+target_link_libraries (host ${CMAKE_THREAD_LIBS_INIT} rt)
+#target_link_libraries (host ${CMAKE_THREAD_LIBS_INIT} ${ALSA_LIBRARIES} rt)
