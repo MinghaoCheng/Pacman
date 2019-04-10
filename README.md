@@ -104,9 +104,9 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 
 <div align=center><img width="400" height="400" src="/Docs/pictures/panel0.jpg"/></div>  
 
-* Soder green LED matrix and red LED matrix as follow, this schematic also can be found at [PCBs](/Docs/PCBs):
+* Soder green LED matrix/red LED matrix as follow, this schematic also can be found at [PCBs](/Docs/PCBs):
 
-<div align=center><img width="400" height="400" src="/Docs/pictures/LED_matrix0.jpg"/></div>  
+<div align=center><img width="400" height="400" src="/Docs/pictures/LED_matrix0.png"/></div>  
 
 ## Software
 * There are two source codes in this project. One works on the host and another one works on the car.  
