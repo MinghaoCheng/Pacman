@@ -100,7 +100,7 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 
 <div align=center><img width="400" height="400" src="/Docs/pictures/host_brd1.jpg"/></div>  
 
-* For LED&LDR matrices, put one green LED, one red LED and one LDR at a single hole on the panel(There are 4x4 holes).  
+* For LED&LDR matrices, put one green LED, one red LED and one LDR at a single hole on the panel(There are 4x4 holes). Note to put LDR above the LEDs.  
 
 <div align=center><img width="400" height="400" src="/Docs/pictures/panel0.jpg"/></div>  
 
