@@ -67,13 +67,9 @@ void LED_matrix::refresh(void)
     static uint8_t row_index = 0;
     
     // write value to GPIOA,PNP transistors here
-    this->GPIO->Set_GPIOA(
-                         ~(
-                            (1 << row_index)|(1 << (row_index+LED_MATRIX_ROW))
-                          )
-                        );
-    // write value to GPIOB,NPN transistors here
-    this->GPIO->Set_GPIOB(this->v_buffer[row_index]);
+    this->GPIO->Set_GPIOA(~this->v_buffer[row_index]);
+    // write value to GPIOB,NPN transistors here, row
+    this->GPIO->Set_GPIOB((1 << row_index)|(1 << (row_index+LED_MATRIX_ROW)));
     // switch to next row
     row_index++;
     if(row_index == LED_MATRIX_ROW)

@@ -41,38 +41,38 @@ SPI::~SPI()
  */
 int8_t SPI::Open(void)
 {
-    int8_t fd;
+    int8_t fd = 0;
     // open spidev file
     if(this->Channel == 0)
     {
-	fd = open(spi_dev_0, O_RDWR);
+        fd = open(spi_dev_0, O_RDWR);
     }
     else if(this->Channel == 1)
     {
-	fd = open(spi_dev_1, O_RDWR);
+        fd = open(spi_dev_1, O_RDWR);
     }
 
     if(fd < 0)
     {
         printf("SPI: cannot open spidev, channel = %d\n", this->Channel);
-	return fd;
+        return fd;
     }
 
     // set spi parameters
     if (ioctl (fd, SPI_IOC_WR_MODE, &this->Mode) < 0)
     {
-	printf("SPI: cannot change mode, channel = %d\n", this->Channel);
-	return fd;
+        printf("SPI: cannot change mode, channel = %d\n", this->Channel);
+        return fd;
     }
     if (ioctl (fd, SPI_IOC_WR_BITS_PER_WORD, &this->spi_msg.bits_per_word) < 0)
     {
         printf("SPI: cannot change BPW, channel = %d\n", this->Channel);
-	return fd;
+        return fd;
     }
     if (ioctl (fd, SPI_IOC_WR_MAX_SPEED_HZ, &this->spi_msg.speed_hz) < 0)
     {
         printf("SPI: cannot change speed, channel = %d\n", this->Channel);
-	return fd;
+        return fd;
     }
     
     this->FD = fd;

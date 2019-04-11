@@ -45,10 +45,10 @@ void Game::reset(void)
 {
     for (uint8_t i = 0; i < GAME_PANEL_MATRIX_ROW; i++)
     {
-        this->v_buffer[i][0] = 0xff;
+        this->v_buffer[i][0] = 0xAA;
         this->v_buffer[i][1] = 0x00;
-        this->led_matrix->write_green(i, this->v_buffer[i][0]);
-        this->led_matrix->write_red(i, this->v_buffer[i][1]);
+        this->led_matrix->write_green(i, 0xAA);
+        this->led_matrix->write_red(i, 0x00);
     }
     // let monster be at location (0,1)
     this->v_buffer[0][1] = 0x01;
@@ -196,6 +196,13 @@ void Game::ghost_position_update(void)
     }
     move_column = !move_column;
     v_buffer[this->ghost_position.row][1] = 1<<this->ghost_position.column;
+    for(uint8_t i=0; i<GAME_PANEL_MATRIX_ROW; i++)
+    {
+        if(i == this->ghost_position.row)
+            this->led_matrix->write_red(this->ghost_position.row, 1<<this->ghost_position.column);
+        else
+            this->led_matrix->write_red(i, 0);
+    }
     printf("Game:Ghost position, row = %d, column = %d. Car position, row = %d, column = %d\n", this->ghost_position.row, this->ghost_position.column, this->car_position.row, this->car_position.column);
     game_status();
 }
