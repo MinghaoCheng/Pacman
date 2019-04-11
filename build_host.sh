@@ -8,6 +8,7 @@ echo "Cleaning temp files.........................."
 rm -r CMakeFiles
 rm CMakeCache.txt
 rm cmake_install.cmake
+rm Makefile
 mv host ./../../host_exe
 cd ./../..
 
