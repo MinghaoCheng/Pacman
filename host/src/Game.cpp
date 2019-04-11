@@ -21,7 +21,7 @@ Game::~Game(void)
 
 int8_t Game::init(void)
 {
-    printf("Game: Initialising\n");
+    printf("Game: Init\n");
     if(-1 == this->led_matrix->init())
     {
         return -1;

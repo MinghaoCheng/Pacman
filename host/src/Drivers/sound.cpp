@@ -23,7 +23,7 @@ int8_t Sound_dev::init(void)
 
 void Sound_dev::play_wav(const char *file_name)
 {
-    printf("aplay %s", file_name);
+    printf("aplay %s\n", file_name);
 }
 
 

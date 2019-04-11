@@ -38,7 +38,6 @@ timer::~timer()
 
 void timer::start_timer(uint64_t nanosecs)
 {
-    printf("Timer: start\n");
     // starts instantly
     this->its.it_value.tv_sec = 0;
     this->its.it_value.tv_nsec = 1;

@@ -60,7 +60,7 @@ MCP23S17::~MCP23S17()
 int8_t MCP23S17::init(void)
 {
     // reset mcp23s17
-    MCP23S17::Reset();
+    this->Reset();
     // Open SPI
     if(-1 < spi_dev->Open())
     {
@@ -142,19 +142,20 @@ void MCP23S17::Set_GPIOB(uint8_t val)
 void MCP23S17::Reset(void)
 {
     char val;
+    int GPIO_fd;
     if(!MCP23S17::Is_reset)
     {
         MCP23S17::Is_reset = true;
-        //GPIO_fd = open("/dev/Pacman_dev", O_RDWR,S_IRUSR | S_IWUSR);
-        //if(GPIO_fd == -1)
-        //{
-        //    printf("Pac_dev file open failed\n");
-        //}
+        GPIO_fd = open("/dev/Pacman_dev", O_RDWR,S_IRUSR | S_IWUSR);
+        if(GPIO_fd == -1)
+        {
+            printf("Pac_dev file open failed\n");
+        }
         val = 0x00;
-        write(this->fds.fd, &val, 1);
+        write(GPIO_fd, &val, 1);
         usleep(10000);            //hold for 10 ms
         val = 0x01;
-        write(this->fds.fd, &val, 1);
+        write(GPIO_fd, &val, 1);
     }
 }
 
