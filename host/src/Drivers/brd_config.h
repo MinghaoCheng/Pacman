@@ -18,4 +18,6 @@
 #define LDR_GPIO_SPI_CHANNEL                0
 #define LDR_GPIO_WIDTH                      8
 
+#define TCP_SOCKET                          3210
+
 #endif

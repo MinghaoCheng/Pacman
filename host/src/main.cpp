@@ -8,11 +8,9 @@
 #include <stdint.h>
 
 #include "Game.h"
-#include "Drivers/brd_config.h"
-#include "Drivers/sound.h"
-
 int main(void)
 {
+    
     Game game_instance(0);
     if(-1 == game_instance.init())
     {

@@ -15,6 +15,7 @@
 #include "util/timer.h"
 #include "Drivers/led_matrix.h"
 #include "Drivers/ldr_matrix.h"
+#include "Drivers/TCP.h"
 #include "Drivers/sound.h"
 #include "Game_config.h"
 
@@ -44,6 +45,7 @@ class Game:public Thread, public callback, public timer
     LED_matrix *led_matrix;
     LDR_matrix *ldr_matrix;
     Sound_dev *sound_dev;
+    TCP_dev *tcp_dev;
     //Keyboard *key;
     
     pthread_t id;

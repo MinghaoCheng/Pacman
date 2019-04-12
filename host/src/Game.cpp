@@ -11,6 +11,7 @@ Game::Game(pthread_t ID):Thread(ID),timer()
     this->id = ID;
     this->led_matrix = new LED_matrix(ID + 1);
     this->ldr_matrix = new LDR_matrix(ID + 2, (callback *)this);
+    this->tcp_dev = new TCP_dev(ID + 3);
     this->game_running = false;
 }
 
@@ -21,7 +22,7 @@ Game::~Game(void)
 
 int8_t Game::init(void)
 {
-    printf("Game: Init\n");
+    printf("Game: Initialising\n");
     if(-1 == this->led_matrix->init())
     {
         return -1;
@@ -37,13 +38,18 @@ int8_t Game::init(void)
         return -1;
     }
     printf("Game: LDR Sound_dev ok\n");
+    if(-1 == this->tcp_dev->init())
+    {
+        return -1;
+    }
+    printf("Game: TCP/IP connection ok\n");
     
     return 0;
 }
 
 void Game::reset(void)
 {
-    for (uint8_t i = 0; i < GAME_PANEL_MATRIX_ROW; i++)
+    for(uint8_t i = 0; i < GAME_PANEL_MATRIX_ROW; i++)
     {
         this->v_buffer[i][0] = 0xAA;
         this->v_buffer[i][1] = 0x00;
@@ -64,14 +70,16 @@ void Game::reset(void)
     this->game_running = true;
     // play start music
     // this->sound_dev->play_start();
+    printf("Game: Started\n");
 }
 
 void Game::thread_handler(void)
 {
-    this->reset();
+    // this->reset();
     this->led_matrix->thread_start();
+    this->tcp_dev->thread_start();
     this->start_timer(GHOST_UPDATE_PERIOD_NS);
-    printf("Game: Start\n");
+    printf("Game: Press reset to start\n");
     while(1)
     {
         sleep(100);
