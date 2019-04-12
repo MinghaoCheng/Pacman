@@ -41,6 +41,17 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 5. Have fun!  
 
 ## System overview<a name="system_overview"></a>
+* This project contains a host and a car. The host does the following work:  
+    ** Control a red LED matrix using a GPIO extender "MCP23S17" to display the location of the ghost
+    ** Control a green LED matrix using a GPIO extender "MCP23S17" to display the pacdots
+    ** Control a LDR matrix as the feedback of location of the car
+    ** Handle a TCP/IP connection as the server, and send instructions to the car via the connection
+    ** Connect with a simple keyboard as input
+    ** Output sound through 3.5mm audio jack (Using function "system()" now, I would add ALSA sound driver later)  
+* The car work as follow:
+    ** Handle a TCP/IP connection as client to receive instructions from the host
+    ** Control two motors(which drive the wheels of the car) through a dual H-bridge IC "L298N"
+    ** The car sink current from 4xAA batteries and a 5V3A LDO is used.
 
 ## Required components(BOM)<a name="required_components(BOM)"></a>
 * host_0 board
@@ -113,6 +124,21 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 * The software of the host contains a kernel module which would work as the driver of the GPIO(it handles GPIO interrupt and output of the GPIO used by the host), and it contains the main codes which works in the user space. There are several components of this software, see details at [Docs](/Docs/software/host)  
 * The software of the car controls the motor using L298N through GPIO, and it also receives instructions from the host over TCP/IP through Wi-Fi connection. See details at [Docs](/Docs/software/car)   
 ## Found a bug<a name="found_a_bug">
+* Hardware:  
+      To isolate the fault of the hardware, the best way is to check the PCB-layouts and schematics.  
+      Here is the definition of pins used by the host:  
+      
+|Raspi-pin|Function|
+|---|---
+|03|Reset of MCP23S17(s)
+|05|INT B of MCP23S17 of LDR board
+|07|INT A of MCP23S17 of LDR board
+|19|MOSI of SPI bus
+|21|MISO of SPI bus
+|23|CLK of SPI bus
+|24|CS_0 of SPI bus, LDR board
+|26|CS_1 of SPI bus, LED board
+      
      
 ## License
 
