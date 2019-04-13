@@ -69,8 +69,11 @@ int TCP_dev::send_buffer(char* buffer, uint8_t size)
 
 void TCP_dev::thread_handler(void)
 {
-    char buffer[1024];
+    struct pollfd fds;
+    char buffer[1];
     int addrlen = sizeof(this->address);
+    fds.fd = this->server_fd;
+    fds.events = POLLIN;
     while(1)
     {
         if(!this->Is_connected)
@@ -86,11 +89,8 @@ void TCP_dev::thread_handler(void)
                 printf("TCP: Car connected\n");
             }
         }
-        if(0 < read(this->socket_handler, buffer, 1024))
-        {
-            //printf("%s\n", buffer);
-        }
-        else
+        poll(&fds, 1, -1);
+        if(0 == recv(fds.fd, buffer, sizeof(buffer), 0))
         {
             printf("TCP: connection lost\n");
             this->Is_connected = false;

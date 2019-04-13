@@ -97,13 +97,10 @@ void Game::cb_func(uint8_t *param, uint8_t size)
     if(size == 1)
     {
         key_val = *param;
+        this->tcp_dev->send_buffer((char *)&key_val, 1);
         if(key_val == KEY_RESET)
         {
             this->reset();
-        }
-        if(this->game_running)
-        {
-            this->tcp_dev->send_buffer((char *)&key_val, 1);
         }
     }
     // called by LDR matrix

@@ -135,7 +135,7 @@ static irqreturn_t irq_handler(int irq, void *dev)
     {
         KEY_flag |= 0x05;
     }
-    printk(KERN_INFO "INT KEY_flag = %x\n", KEY_flag);
+    //printk(KERN_INFO "INT KEY_flag = %x\n", KEY_flag);
     wake_up_interruptible(&INT_waitq);
     return IRQ_HANDLED;
 }

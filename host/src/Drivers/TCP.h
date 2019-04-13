@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <poll.h>
 #include <string.h>
 
 #include "brd_config.h"
