@@ -30,7 +30,7 @@ int8_t Keyboard::init(void)
 
 void Keyboard::thread_handler(void)
 {
-    char status, val;
+    char status, val[2];
     int poll_ret;
     
     this->fds.events = POLLRDBAND;
@@ -39,10 +39,10 @@ void Keyboard::thread_handler(void)
         poll_ret = poll(&this->fds, 1, -1);
         if(poll_ret != 0)
         {
-            status = read(this->fds.fd, &val, 1);
+            status = read(this->fds.fd, val, 2);
             if(status)
             {
-                this->cb->cb_func((uint8_t *)&val, 1);
+                this->cb->cb_func((uint8_t *)val, 1);
             }
         }
     }

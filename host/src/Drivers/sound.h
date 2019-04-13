@@ -13,14 +13,23 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-class Sound_dev
+#include "./../util/Thread.h"
+
+class Sound_dev:public Thread
 {
     public:
-    Sound_dev();
+    Sound_dev(pthread_t ID);
     virtual ~Sound_dev();
     
     int8_t init(void);
-    void play_wav(const char *file_name);
+    void play_wav(const char *File_name);
+    
+    
+    
+    private:
+    void thread_handler(void);
+    char *file_name;
+    bool flag;
 };
 
 #endif

@@ -17,7 +17,7 @@ void sys_printf(char *fmt,...)
 }
 
 
-Sound_dev::Sound_dev()
+Sound_dev::Sound_dev(pthread_t ID):Thread(ID)
 {
     
 }
@@ -29,12 +29,31 @@ Sound_dev::~Sound_dev()
 
 int8_t Sound_dev::init(void)
 {
+    this->flag = false;
     return 1;
 }
 
-void Sound_dev::play_wav(const char *file_name)
+void Sound_dev::play_wav(const char *File_name)
 {
-    sys_printf((char *)"aplay %s\n", file_name);
+    this->file_name = (char*)File_name;
+    if(!this->flag)
+    {
+        this->flag = true;
+    }
+    //sys_printf((char *)"aplay %s\n", file_name);
+}
+
+void Sound_dev::thread_handler(void)
+{
+    while(1)
+    {
+        if(this->flag)
+        {
+            sys_printf((char *)"aplay %s\n", this->file_name);
+            this->flag = false;
+        }
+        usleep(1000);
+    }
 }
 
 /*

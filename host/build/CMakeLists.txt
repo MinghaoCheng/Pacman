@@ -3,8 +3,8 @@ project (Pacman_car)
 cmake_minimum_required (VERSION 3.7)
 
 # build type& parameters
-#set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
+#set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CXX_FLAGS "-Wall")
 
 # dir specification

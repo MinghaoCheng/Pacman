@@ -16,7 +16,7 @@
 #define GAME_START_SOUND_FILE                   "./host_sound_files/pacman_beginning.wav"
 #define GAME_DOT_EATEN_FILE                     "./host_sound_files/pacman_eatfruit.wav"
 #define GAME_LOSING_FILE                        "./host_sound_files/pacman_death.wav"
-#define GAME_WINNING_FILE                       "./host_sound_files/"
+#define GAME_WINNING_FILE                       "./host_sound_files/pacman_intermission.wav"
 
 #define KEY_UP                                  0x01
 #define KEY_DOWN                                0x02

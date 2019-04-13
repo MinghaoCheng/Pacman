@@ -48,13 +48,19 @@ int8_t LDR_matrix::init(void)
  */
 void LDR_matrix::cb_func(uint8_t *param, uint8_t size)
 {
-    //printf("LDR: INT call_back, GPIOA = %x, GPIOB = %x\n", param[0], param[1]);
-    uint8_t buf[LED_MATRIX_ROW];
+    uint8_t columns[LED_MATRIX_ROW];
+    uint8_t rows[LED_MATRIX_ROW];
     // mapping GPIO to rows
-    buf[0] = param[0]&0x0f;
-    buf[1] = (param[0]&0xf0)>>4;
-    buf[2] = param[1]&0x0f;
-    buf[3] = (param[1]&0xf0)>>4;
+    columns[0] = 0xf&~(param[0]&0x0f);
+    columns[1] = 0xf&~((param[0]&0xf0)>>4);
+    columns[2] = 0xf&~(param[1]&0x0f);
+    columns[3] = 0xf&~((param[1]&0xf0)>>4);
+    
+    rows[0] =  (columns[0]&1)     |((columns[1]&1)<<1)  | ((columns[2]&1)<<2) | ((columns[3]&1)<<3);
+    rows[1] = ((columns[0]&2)>>1) | (columns[1]&2)      | ((columns[2]&2)<<1) | ((columns[3]&2)<<2);
+    rows[2] = ((columns[0]&4)>>2) | ((columns[1]&4)>>1) |  (columns[2]&4)     | ((columns[3]&4)<<1);
+    rows[3] = ((columns[0]&8)>>3) | ((columns[1]&8)>>2) | ((columns[2]&8)>>1) |  (columns[3]&8);
+    
     // call the INT_handler
-    this->INT_handler->cb_func(buf, LED_MATRIX_ROW);
+    this->INT_handler->cb_func(rows, LED_MATRIX_ROW);
 }

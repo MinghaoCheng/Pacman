@@ -90,7 +90,7 @@ void TCP_dev::thread_handler(void)
             }
         }
         poll(&fds, 1, -1);
-        if(0 == recv(fds.fd, buffer, sizeof(buffer), 0))
+        if(0 >= recv(fds.fd, buffer, sizeof(buffer), 0))
         {
             printf("TCP: connection lost\n");
             this->Is_connected = false;

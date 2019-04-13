@@ -33,29 +33,35 @@ DECLARE_WAIT_QUEUE_HEAD(INT_waitq);    //declear wait queue head for poll interf
 static ssize_t gpio_read(struct file *filp, char __user *buf, size_t count, loff_t *f_pos)
 {
     int status;
-    if(INT_flag)
+    if(count == 1)
     {
-        // copy data from kernel space to user space
-        status = copy_to_user(buf, (char *)&INT_flag, 1);
-        INT_flag = 0;
-        if(status == -1)
+        if(INT_flag)
         {
-            printk(KERN_INFO "error when copying GPIO INT status to user space\n");
-            return -1;
+            // copy data from kernel space to user space
+            status = copy_to_user(buf, (char *)&INT_flag, 1);
+            INT_flag = 0;
+            if(status == -1)
+            {
+                printk(KERN_INFO "error when copying GPIO INT status to user space\n");
+                return -1;
+            }
+            return 1;
         }
-        return 1;
     }
-    if(KEY_flag)
+    else
     {
-        // copy data from kernel space to user space
-        status = copy_to_user(buf, (char *)&KEY_flag, 1);
-        KEY_flag = 0;
-        if(status == -1)
+        if(KEY_flag)
         {
-            printk(KERN_INFO "error when copying GPIO INT status to user space\n");
-            return -1;
+            // copy data from kernel space to user space
+            status = copy_to_user(buf, (char *)&KEY_flag, 1);
+            KEY_flag = 0;
+            if(status == -1)
+            {
+                printk(KERN_INFO "error when copying GPIO INT status to user space\n");
+                return -1;
+            }
+            return 1;
         }
-        return 1;
     }
     return 0;
 }
@@ -106,12 +112,11 @@ static const struct file_operations Pacman_fops =
 /**********************IRQ handler******************************/
 static irqreturn_t irq_handler(int irq, void *dev)
 {
-    //////////////////
-    if(irq == gpio_to_irq(INTA_PIN))
+    if(irq == gpio_to_irq(INTA_PIN))         // INT A
     {
         INT_flag |= 0x01;
     }
-    else if(irq == gpio_to_irq(INTB_PIN))
+    else if(irq == gpio_to_irq(INTB_PIN))    // INT B
     {
         INT_flag |= 0x02;
     }
@@ -135,7 +140,7 @@ static irqreturn_t irq_handler(int irq, void *dev)
     {
         KEY_flag |= 0x05;
     }
-    //printk(KERN_INFO "INT KEY_flag = %x\n", KEY_flag);
+
     wake_up_interruptible(&INT_waitq);
     return IRQ_HANDLED;
 }
@@ -200,14 +205,14 @@ static __init int Pacman_dev_init(void)
     }
     // enable interrupt& register a callback function
     enable_irq(gpio_to_irq(INTA_PIN));
-    err = request_irq(gpio_to_irq(INTA_PIN), irq_handler, IRQF_TRIGGER_FALLING, DEV_NAME, NULL);
+    err = request_irq(gpio_to_irq(INTA_PIN), irq_handler, IRQF_TRIGGER_RISING, DEV_NAME, NULL);
     if (err < 0)
     {
         printk("Pacman_dev irq_A_request setting failed!\n");
         return err;
     }
     enable_irq(gpio_to_irq(INTB_PIN));
-    err = request_irq(gpio_to_irq(INTB_PIN), irq_handler, IRQF_TRIGGER_FALLING, DEV_NAME, NULL);
+    err = request_irq(gpio_to_irq(INTB_PIN), irq_handler, IRQF_TRIGGER_RISING, DEV_NAME, NULL);
     if (err < 0)
     {
         printk("Pacman_dev irq_B_request setting failed!\n");
