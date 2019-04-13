@@ -76,14 +76,17 @@ void TCP_dev::thread_handler(void)
         if(!this->Is_connected)
         {
             printf("TCP: waiting for connection of Car\n");
-            if((this->socket_handler = accept(this->server_fd, (struct sockaddr *)&this->address, (socklen_t*)&addrlen))<0)
+            if((this->socket_handler = accept(this->server_fd, (struct sockaddr *)&this->address, (socklen_t*)&addrlen)) < 0)
             {
-                printf("TCP: socket accept failed\n");
+                printf("TCP: socket accept failed, check network connection\n");
             }
-            this->Is_connected = true;
-            printf("TCP: Car connected\n");
+            else
+            {
+                this->Is_connected = true;
+                printf("TCP: Car connected\n");
+            }
         }
-        if(0!=read(this->socket_handler, buffer, 1024))
+        if(0 < read(this->socket_handler, buffer, 1024))
         {
             //printf("%s\n", buffer);
         }

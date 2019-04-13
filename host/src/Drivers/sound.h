@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdarg.h>
+#include <unistd.h>
 
 class Sound_dev
 {
@@ -18,7 +20,6 @@ class Sound_dev
     virtual ~Sound_dev();
     
     int8_t init(void);
-    
     void play_wav(const char *file_name);
 };
 

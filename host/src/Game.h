@@ -10,13 +10,17 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "util/Thread.h"
 #include "util/callback.h"
 #include "util/timer.h"
+
 #include "Drivers/led_matrix.h"
 #include "Drivers/ldr_matrix.h"
 #include "Drivers/TCP.h"
 #include "Drivers/sound.h"
+#include "Drivers/Keyboard.h"
+
 #include "Game_config.h"
 
 struct Position
@@ -37,7 +41,8 @@ class Game:public Thread, public callback, public timer
     // game logic
     bool game_running;
     int8_t game_status(void);
-    uint8_t v_buffer[GAME_PANEL_MATRIX_ROW][3];        //[:][0]-->Green, [:][1]-->Red,[:][2]-->Values of LDR matrix
+    uint8_t G_LED_buffer[GAME_PANEL_MATRIX_ROW];
+    uint8_t LDR_buffer[GAME_PANEL_MATRIX_ROW];
     Position car_position;
     Position ghost_position;
     void ghost_position_update(void);
@@ -46,12 +51,13 @@ class Game:public Thread, public callback, public timer
     LDR_matrix *ldr_matrix;
     Sound_dev *sound_dev;
     TCP_dev *tcp_dev;
-    //Keyboard *key;
+    Keyboard *key;
     
     pthread_t id;
     void thread_handler(void);
     void cb_func(uint8_t *param, uint8_t size);
     void timerEvent(void);
+    void update_LED(void);
 };
 
 #endif

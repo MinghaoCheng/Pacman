@@ -48,7 +48,7 @@ int8_t LDR_matrix::init(void)
  */
 void LDR_matrix::cb_func(uint8_t *param, uint8_t size)
 {
-    printf("LDR: INT call_back, GPIOA = %x, GPIOB = %x\n", param[0], param[1]);
+    //printf("LDR: INT call_back, GPIOA = %x, GPIOB = %x\n", param[0], param[1]);
     uint8_t buf[LED_MATRIX_ROW];
     // mapping GPIO to rows
     buf[0] = param[0]&0x0f;

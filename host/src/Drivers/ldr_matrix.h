@@ -9,7 +9,7 @@
 
 #include <stdint.h>
 
-#include "./../Drivers/mcp23s17.h"
+#include "./../BSP/mcp23s17.h"
 #include "./../util/Thread.h"
 #include "./../util/callback.h"
 #include "brd_config.h"

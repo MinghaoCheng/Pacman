@@ -12,6 +12,7 @@ Game::Game(pthread_t ID):Thread(ID),timer()
     this->led_matrix = new LED_matrix(ID + 1);
     this->ldr_matrix = new LDR_matrix(ID + 2, (callback *)this);
     this->tcp_dev = new TCP_dev(ID + 3);
+    this->key = new Keyboard(ID + 4, (callback *)this);
     this->game_running = false;
 }
 
@@ -42,23 +43,25 @@ int8_t Game::init(void)
     {
         return -1;
     }
-    printf("Game: TCP/IP connection ok\n");
+    printf("Game: TCP/IP ok\n");
+    if(-1 == this->key->init())
+    {
+        return -1;
+    }
+    printf("Game: Keyboard ok\n");
     
     return 0;
 }
 
 void Game::reset(void)
 {
+    // stop the game
+    this->game_running = false;
+    // reset the pac dots
     for(uint8_t i = 0; i < GAME_PANEL_MATRIX_ROW; i++)
     {
-        this->v_buffer[i][0] = 0xAA;
-        this->v_buffer[i][1] = 0x00;
-        this->led_matrix->write_green(i, 0xAA);
-        this->led_matrix->write_red(i, 0x00);
+        this->G_LED_buffer[i] = 0xf;
     }
-    // let monster be at location (0,1)
-    this->v_buffer[0][1] = 0x01;
-    this->led_matrix->write_red(0, this->v_buffer[0][1]);
     // reset the position of the car
     this->car_position.Is_upon_dot = false;
     this->car_position.column = 0;
@@ -66,18 +69,19 @@ void Game::reset(void)
     // reset the position of the ghost
     this->ghost_position.column = GAME_PANEL_MATRIX_COLUMN - 1;
     this->ghost_position.row = GAME_PANEL_MATRIX_ROW - 1;
+    // play start music
+    this->sound_dev->play_wav(GAME_START_SOUND_FILE);
+    this->update_LED();
+    printf("Game: Started\n");
     // set the flag
     this->game_running = true;
-    // play start music
-    // this->sound_dev->play_start();
-    printf("Game: Started\n");
 }
 
 void Game::thread_handler(void)
 {
-    // this->reset();
     this->led_matrix->thread_start();
     this->tcp_dev->thread_start();
+    this->key->thread_start();
     this->start_timer(GHOST_UPDATE_PERIOD_NS);
     printf("Game: Press reset to start\n");
     while(1)
@@ -88,38 +92,55 @@ void Game::thread_handler(void)
 
 void Game::cb_func(uint8_t *param, uint8_t size)
 {
+    uint8_t key_val;
     // called by keyboard
     if(size == 1)
     {
-        // send corresponding instruction to the car
-        // ........
-        // reset game
-        // ........
+        key_val = *param;
+        if(key_val == KEY_RESET)
+        {
+            this->reset();
+        }
+        if(this->game_running)
+        {
+            this->tcp_dev->send_buffer((char *)&key_val, 1);
+        }
     }
     // called by LDR matrix
     else
     {
         for(uint8_t i=0; i<size; i++)
         {
-            this->v_buffer[i][2] = param[i];
+            this->LDR_buffer[i] = param[i];
         }
         // update position of the car
+        this->car_position.Is_upon_dot = false;
         for(uint8_t i=0; i<GAME_PANEL_MATRIX_ROW; i++)
         {
-            if(this->v_buffer)
+            if(this->LDR_buffer[i])
             {
                 this->car_position.row = i;
                 for(uint8_t j=0; j<GAME_PANEL_MATRIX_COLUMN; j++)
                 {
-                    if(this->v_buffer[this->car_position.row][2] == 1<<j)
+                    if(this->LDR_buffer[this->car_position.row] == 1<<j)
                     {
                         this->car_position.column = j;
+                        this->car_position.Is_upon_dot = true;
                         break;
                     }
                 }
                 break;
             }
         }
+        if(this->car_position.Is_upon_dot)
+        {
+            if(G_LED_buffer[this->car_position.row]&(1<<this->car_position.column))
+            {
+                G_LED_buffer[this->car_position.row] &= ~(1<<this->car_position.column);
+                this->sound_dev->play_wav(GAME_DOT_EATEN_FILE);
+            }
+        }
+        this->update_LED();
     }
 }
 
@@ -138,7 +159,7 @@ int8_t Game::game_status(void)
     // check whether all dots are eaten
     for (uint8_t i=0; i<LED_MATRIX_ROW; i++)
     {
-        temp += v_buffer[i][0];
+        temp += G_LED_buffer[i];
     }
     if(temp == 0)
     {
@@ -146,16 +167,19 @@ int8_t Game::game_status(void)
         // all dots are eaten, game complete
         // play winning music
         // this->sound_dev->play_win();
+        printf("GAME: All dots have been eaten, you win!!\n");
         this->game_running = false;
     }
     // check whether the car is hit by the monster
-    if(this->car_position.column == this->ghost_position.column && this->car_position.row == this->ghost_position.row)
+    if((this->car_position.column == this->ghost_position.column) &&
+       (this->car_position.row == this->ghost_position.row) &&
+       (this->car_position.Is_upon_dot))
     {
         val = -1;
         // pacman is catched by monster, game over
         // play losing music
-        // this->sound_dev->play_lost();
-        printf("Pacman has been catched by the ghost\n");
+        this->sound_dev->play_wav(GAME_LOSING_FILE);
+        printf("GAME: Pacman has been catched by the ghost!\n");
         this->game_running = false;
     }
     return val;
@@ -203,7 +227,13 @@ void Game::ghost_position_update(void)
         this->ghost_position.column = 0;
     }
     move_column = !move_column;
-    v_buffer[this->ghost_position.row][1] = 1<<this->ghost_position.column;
+    this->update_LED();
+    printf("Game: Ghost position, row = %d, column = %d. Car position, row = %d, column = %d\n", this->ghost_position.row, this->ghost_position.column, this->car_position.row, this->car_position.column);
+    this->game_status();
+}
+
+void Game::update_LED(void)
+{
     for(uint8_t i=0; i<GAME_PANEL_MATRIX_ROW; i++)
     {
         if(i == this->ghost_position.row)
@@ -211,6 +241,8 @@ void Game::ghost_position_update(void)
         else
             this->led_matrix->write_red(i, 0);
     }
-    printf("Game:Ghost position, row = %d, column = %d. Car position, row = %d, column = %d\n", this->ghost_position.row, this->ghost_position.column, this->car_position.row, this->car_position.column);
-    game_status();
+    for(uint8_t i=0; i<GAME_PANEL_MATRIX_ROW; i++)
+    {
+        this->led_matrix->write_green(i, this->G_LED_buffer[i]);
+    }
 }

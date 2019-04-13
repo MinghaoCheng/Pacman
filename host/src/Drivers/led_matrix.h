@@ -13,7 +13,7 @@
 #include <time.h>
 
 #include "brd_config.h"
-#include "mcp23s17.h"
+#include "./../BSP/mcp23s17.h"
 #include "../util/Thread.h"
 
 /*          Green

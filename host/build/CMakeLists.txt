@@ -13,6 +13,7 @@ set (SRC_DIR "${PROJ_DIR}/src")
 
 # add folders of source files
 aux_source_directory(${SRC_DIR} MAIN_SRC)
+aux_source_directory(${SRC_DIR}/BSP BSP_SRC)
 aux_source_directory(${SRC_DIR}/Drivers DRIVER_SRC)
 aux_source_directory(${SRC_DIR}/util UTIL_SRC)
 
@@ -28,6 +29,6 @@ find_package (Threads)
 # set(EXECUTABLE_OUTPUT_PATH ${PROJ_DIR})
 
 # add exe
-add_executable(host ${MAIN_SRC} ${DRIVER_SRC} ${UTIL_SRC})
+add_executable(host ${MAIN_SRC} ${BSP_SRC} ${DRIVER_SRC} ${UTIL_SRC})
 target_link_libraries (host ${CMAKE_THREAD_LIBS_INIT} rt)
 #target_link_libraries (host ${CMAKE_THREAD_LIBS_INIT} ${ALSA_LIBRARIES} rt)

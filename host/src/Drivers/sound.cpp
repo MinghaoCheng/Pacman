@@ -6,6 +6,17 @@
  */
 #include "sound.h"
 
+char string[100];
+void sys_printf(char *fmt,...)
+{
+    va_list ap;
+    va_start(ap, fmt);
+    vsprintf(string, fmt, ap);
+    system(string);
+    va_end(ap);
+}
+
+
 Sound_dev::Sound_dev()
 {
     
@@ -23,9 +34,8 @@ int8_t Sound_dev::init(void)
 
 void Sound_dev::play_wav(const char *file_name)
 {
-    printf("aplay %s\n", file_name);
+    sys_printf((char *)"aplay %s\n", file_name);
 }
-
 
 /*
 #include <alsa/asoundlib.h>
