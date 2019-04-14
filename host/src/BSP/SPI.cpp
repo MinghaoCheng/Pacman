@@ -20,9 +20,12 @@ SPI::SPI(uint8_t channel, uint32_t speed, uint8_t mode, uint8_t bits_per_word)
 {
     this->Channel = channel;
     this->Mode = mode;
+    this->Speed = speed;
+    this->BPW = bits_per_word;
     
-    this->spi_msg.bits_per_word = bits_per_word;
-    this->spi_msg.speed_hz = speed;
+    memset(&this->spi_msg, 0, sizeof (this->spi_msg));
+    this->spi_msg.bits_per_word = this->BPW;
+    this->spi_msg.speed_hz = this->Speed;
     this->spi_msg.delay_usecs = 0;
 }
 

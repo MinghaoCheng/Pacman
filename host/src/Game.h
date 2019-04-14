@@ -57,7 +57,8 @@ class Game:public Thread, public callback, public timer
     void thread_handler(void);
     void cb_func(uint8_t *param, uint8_t size);
     void timerEvent(void);
-    void update_LED(void);
+    void update_LED_Green(void);
+    void update_LED_Red(void);
 };
 
 #endif

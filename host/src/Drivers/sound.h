@@ -23,7 +23,7 @@ class Sound_dev:public Thread
     
     int8_t init(void);
     void play_wav(const char *File_name);
-    
+    void play_wav_blocking(const char *File_name);
     
     
     private:

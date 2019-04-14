@@ -40,7 +40,11 @@ void Sound_dev::play_wav(const char *File_name)
     {
         this->flag = true;
     }
-    //sys_printf((char *)"aplay %s\n", file_name);
+}
+
+void Sound_dev::play_wav_blocking(const char *File_name)
+{
+    sys_printf((char *)"aplay %s\n", File_name);
 }
 
 void Sound_dev::thread_handler(void)
@@ -49,8 +53,8 @@ void Sound_dev::thread_handler(void)
     {
         if(this->flag)
         {
-            sys_printf((char *)"aplay %s\n", this->file_name);
             this->flag = false;
+            sys_printf((char *)"aplay %s\n", this->file_name);
         }
         usleep(1000);
     }

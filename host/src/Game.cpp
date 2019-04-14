@@ -70,9 +70,11 @@ void Game::reset(void)
     // reset the position of the ghost
     this->ghost_position.column = GAME_PANEL_MATRIX_COLUMN - 1;
     this->ghost_position.row = GAME_PANEL_MATRIX_ROW - 1;
+    // update LED display
+    this->update_LED_Green();
+    this->update_LED_Red();
     // play start music
-    this->sound_dev->play_wav(GAME_START_SOUND_FILE);
-    this->update_LED();
+    this->sound_dev->play_wav_blocking(GAME_START_SOUND_FILE);
     printf("Game: Started\n");
     // set the flag
     this->game_running = true;
@@ -122,16 +124,15 @@ void Game::cb_func(uint8_t *param, uint8_t size)
                 if(this->LDR_buffer[i])
                 {
                     this->car_position.row = i;
+                    this->car_position.Is_upon_dot = true;
                     for(uint8_t j=0; j<GAME_PANEL_MATRIX_COLUMN; j++)
                     {
                         if(this->LDR_buffer[this->car_position.row] == 1<<j)
                         {
                             this->car_position.column = j;
-                            this->car_position.Is_upon_dot = true;
                             break;
                         }
                     }
-                    break;
                 }
             }
             if(this->car_position.Is_upon_dot)
@@ -143,8 +144,8 @@ void Game::cb_func(uint8_t *param, uint8_t size)
                 }
             }
             this->game_status();
-            this->update_LED();
         }
+        this->update_LED_Green();
     }
 }
 
@@ -184,7 +185,6 @@ int8_t Game::game_status(void)
         this->game_running = false;
         return 1;
     }
-    // check whether the car is hit by the monster
     return 0;
 }
 
@@ -230,12 +230,20 @@ void Game::ghost_position_update(void)
         this->ghost_position.column = 0;
     }
     move_column = !move_column;
-    this->update_LED();
-    printf("Game: Ghost position, row = %d, column = %d. Car position, row = %d, column = %d\n", this->ghost_position.row, this->ghost_position.column, this->car_position.row, this->car_position.column);
+    this->update_LED_Red();
+    printf("Game: Ghost position, row = %d, column = %d. Car position, row = %d, column = %d\n", this->ghost_position.row, this->ghost_position.column, this->car_position.row, this->car_position.column); 
     this->game_status();
 }
 
-void Game::update_LED(void)
+void Game::update_LED_Green(void)
+{
+    for(uint8_t i=0; i<GAME_PANEL_MATRIX_ROW; i++)
+    {
+        this->led_matrix->write_green(i, this->G_LED_buffer[i]);
+    }
+}
+
+void Game::update_LED_Red(void)
 {
     for(uint8_t i=0; i<GAME_PANEL_MATRIX_ROW; i++)
     {
@@ -244,8 +252,5 @@ void Game::update_LED(void)
         else
             this->led_matrix->write_red(i, 0);
     }
-    for(uint8_t i=0; i<GAME_PANEL_MATRIX_ROW; i++)
-    {
-        this->led_matrix->write_green(i, this->G_LED_buffer[i]);
-    }
 }
+

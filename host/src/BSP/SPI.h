@@ -8,6 +8,7 @@
 #define _SPI_H_
 
 #include <stdint.h>
+#include <string.h>
 #include <linux/spi/spidev.h>
 
 /*
@@ -26,6 +27,8 @@ class SPI
     int16_t FD;
     uint8_t Channel;
     uint8_t Mode;
+    uint32_t Speed;
+    uint8_t BPW;
     
     struct spi_ioc_transfer spi_msg;
     static constexpr const char* spi_dev_0 = "/dev/spidev0.0";
