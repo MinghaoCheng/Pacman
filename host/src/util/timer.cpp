@@ -6,6 +6,10 @@
  */
 #include "timer.h"
 
+/*
+ * Description:
+ * Constructor, set the signal and register the handler
+ */
 timer::timer()
 {
     // We create a static handler catches the signal SIG
@@ -28,6 +32,10 @@ timer::timer()
     }
 };
 
+/*
+ * Description:
+ * Destructor
+ */
 timer::~timer()
 {
     // delete the timer
@@ -36,6 +44,10 @@ timer::~timer()
     signal(SIGRTMIN, SIG_IGN);
 }
 
+/*
+ * Description:
+ * Start the timer (signal)
+ */
 void timer::start_timer(uint64_t nanosecs)
 {
     // starts instantly
@@ -49,6 +61,10 @@ void timer::start_timer(uint64_t nanosecs)
     }
 }
 
+/*
+ * Description:
+ * Reinterpret cast to the member function
+ */
 void timer::timer_handler(int sig, siginfo_t *si, void *uc)
 {
     (reinterpret_cast<timer *> (si->si_value.sival_ptr))->timerEvent();

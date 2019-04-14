@@ -23,12 +23,20 @@
 
 #include "Game_config.h"
 
+/*
+ * Description:
+ * Struct handling the position 
+ */
 struct Position
 {
     int8_t row,column;
     bool Is_upon_dot;
 };
 
+/*
+ * Description:
+ * Class handling the game
+ */
 class Game:public Thread, public callback, public timer
 {
     public:

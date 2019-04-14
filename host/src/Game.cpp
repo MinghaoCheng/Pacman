@@ -6,6 +6,10 @@
  */
 #include "Game.h"
 
+/*
+ * Description:
+ * Constructor, create instances of hardwares
+ */
 Game::Game(pthread_t ID):Thread(ID),timer()
 {
     this->id = ID;
@@ -17,11 +21,23 @@ Game::Game(pthread_t ID):Thread(ID),timer()
     this->game_running = false;
 }
 
+/*
+ * Description:
+ * Destructor
+ */
 Game::~Game(void)
 {
     delete this->led_matrix;
+    delete this->ldr_matrix;
+    delete this->tcp_dev;
+    delete this->key;
+    delete this->sound_dev;
 }
 
+/*
+ * Description:
+ * Initialise the hardwares
+ */
 int8_t Game::init(void)
 {
     printf("Game: Initialising\n");
@@ -54,6 +70,10 @@ int8_t Game::init(void)
     return 0;
 }
 
+/*
+ * Description:
+ * Reset the game
+ */
 void Game::reset(void)
 {
     // stop the game
@@ -80,6 +100,10 @@ void Game::reset(void)
     this->game_running = true;
 }
 
+/*
+ * Description:
+ * Thread handler
+ */
 void Game::thread_handler(void)
 {
     this->led_matrix->thread_start();
@@ -95,6 +119,10 @@ void Game::thread_handler(void)
     }
 }
 
+/*
+ * Description:
+ * Implementation callback function
+ */
 void Game::cb_func(uint8_t *param, uint8_t size)
 {
     uint8_t key_val;
@@ -149,6 +177,10 @@ void Game::cb_func(uint8_t *param, uint8_t size)
     }
 }
 
+/*
+ * Description:
+ * Timer callback
+ */
 void Game::timerEvent(void)
 {
     if(this->game_running)
@@ -157,6 +189,10 @@ void Game::timerEvent(void)
     }
 }
 
+/*
+ * Description:
+ * Check the status of the game, winning or losing
+ */
 int8_t Game::game_status(void)
 {
     uint8_t temp = 0;
@@ -188,6 +224,10 @@ int8_t Game::game_status(void)
     return 0;
 }
 
+/*
+ * Description:
+ * Call by the timerEvent, update the ghost position, chasing the Pacman
+ */
 void Game::ghost_position_update(void)
 {
     static bool move_column = true;
@@ -235,6 +275,10 @@ void Game::ghost_position_update(void)
     this->game_status();
 }
 
+/*
+ * Description:
+ * Update the green LEDs
+ */
 void Game::update_LED_Green(void)
 {
     for(uint8_t i=0; i<GAME_PANEL_MATRIX_ROW; i++)
@@ -243,6 +287,10 @@ void Game::update_LED_Green(void)
     }
 }
 
+/*
+ * Description:
+ * Update the red LEDs
+ */
 void Game::update_LED_Red(void)
 {
     for(uint8_t i=0; i<GAME_PANEL_MATRIX_ROW; i++)

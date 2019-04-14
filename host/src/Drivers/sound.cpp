@@ -7,6 +7,10 @@
 #include "sound.h"
 
 char string[100];
+/*
+ * Description:
+ * Reconstruct the string
+ */
 void sys_printf(char *fmt,...)
 {
     va_list ap;
@@ -16,23 +20,38 @@ void sys_printf(char *fmt,...)
     va_end(ap);
 }
 
-
+/*
+ * Description:
+ * Constructor, pass the Thread ID
+ */
 Sound_dev::Sound_dev(pthread_t ID):Thread(ID)
 {
     
 }
 
+/*
+ * Description:
+ * Destructor
+ */
 Sound_dev::~Sound_dev()
 {
     
 }
 
+/*
+ * Description:
+ * Initialise
+ */
 int8_t Sound_dev::init(void)
 {
     this->flag = false;
     return 1;
 }
 
+/*
+ * Description:
+ * Pass the file name to global string and play it in another thread
+ */
 void Sound_dev::play_wav(const char *File_name)
 {
     this->file_name = (char*)File_name;
@@ -42,11 +61,19 @@ void Sound_dev::play_wav(const char *File_name)
     }
 }
 
+/*
+ * Description:
+ * Play it in the current thread
+ */
 void Sound_dev::play_wav_blocking(const char *File_name)
 {
     sys_printf((char *)"aplay %s\n", File_name);
 }
 
+/*
+ * Description:
+ * Thread function, play the sound file
+ */
 void Sound_dev::thread_handler(void)
 {
     while(1)

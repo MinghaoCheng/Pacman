@@ -19,6 +19,10 @@
 #include "brd_config.h"
 #include "./../util/Thread.h"
 
+/*
+ * Description:
+ * Class that create and maintain a TCP socket as server
+ */
 class TCP_dev:public Thread
 {
     public:

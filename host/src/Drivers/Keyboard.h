@@ -19,6 +19,10 @@
 #include "../util/Thread.h"
 #include "../util/callback.h"
 
+/*
+ * Description:
+ * Class, driver of the keyboard
+ */
 class Keyboard:public Thread
 {
     public:

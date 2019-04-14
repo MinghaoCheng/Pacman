@@ -18,6 +18,11 @@
 #include <signal.h>
 #include <time.h>
 
+/*
+ * Description:
+ * Base class provides timer function
+ * Note: The SIGRTMIN (SIG34) would interrupt some blocking functions (read(), select())
+ */
 class timer
 {
     public:

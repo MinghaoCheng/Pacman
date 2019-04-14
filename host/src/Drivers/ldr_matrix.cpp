@@ -55,7 +55,7 @@ void LDR_matrix::cb_func(uint8_t *param, uint8_t size)
     columns[1] = 0xf&~((param[0]&0xf0)>>4);
     columns[2] = 0xf&~(param[1]&0x0f);
     columns[3] = 0xf&~((param[1]&0xf0)>>4);
-    
+
     rows[0] =  (columns[0]&1)     |((columns[1]&1)<<1)  | ((columns[2]&1)<<2) | ((columns[3]&1)<<3);
     rows[1] = ((columns[0]&2)>>1) | (columns[1]&2)      | ((columns[2]&2)<<1) | ((columns[3]&2)<<2);
     rows[2] = ((columns[0]&4)>>2) | ((columns[1]&4)>>1) |  (columns[2]&4)     | ((columns[3]&4)<<1);

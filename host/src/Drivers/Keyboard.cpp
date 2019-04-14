@@ -7,16 +7,28 @@
  
 #include "Keyboard.h"
 
+/*
+ * Description:
+ * Constructor, register the callback function
+ */
 Keyboard::Keyboard(pthread_t ID, callback *CB):Thread(ID)
 {
     this->cb = CB;
 }
 
+/*
+ * Description:
+ * Destructor
+ */
 Keyboard::~Keyboard()
 {
     
 }
 
+/*
+ * Description:
+ * Open the device file
+ */
 int8_t Keyboard::init(void)
 {
     this->fds.fd = open("/dev/Pacman_dev", O_RDWR,S_IRUSR | S_IWUSR);
@@ -28,6 +40,10 @@ int8_t Keyboard::init(void)
     return 0;
 }
 
+/*
+ * Description:
+ * Thread handler, poll the device file, call the callback function when interrupt triggered
+ */
 void Keyboard::thread_handler(void)
 {
     char status, val[2];

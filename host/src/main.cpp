@@ -10,7 +10,6 @@
 #include "Game.h"
 int main(void)
 {
-    
     Game game_instance(0);
     if(-1 == game_instance.init())
     {

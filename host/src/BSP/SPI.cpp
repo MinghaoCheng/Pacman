@@ -14,7 +14,7 @@
 
 /*
  * Description:
- * class instructor, set params
+ * class constructor, set params
  */
 SPI::SPI(uint8_t channel, uint32_t speed, uint8_t mode, uint8_t bits_per_word)
 {
