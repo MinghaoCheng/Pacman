@@ -85,6 +85,7 @@ void Game::thread_handler(void)
     this->key->thread_start();
     this->sound_dev->thread_start();
     this->start_timer(GHOST_UPDATE_PERIOD_NS);
+    printf("Game: Please connect car\n");
     printf("Game: Press reset to start\n");
     while(1)
     {

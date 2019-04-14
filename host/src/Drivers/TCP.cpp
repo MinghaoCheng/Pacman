@@ -6,7 +6,7 @@
  */
  
 #include "TCP.h"
- 
+#include <errno.h>
 TCP_dev::TCP_dev(pthread_t ID):Thread(ID)
 {
     
@@ -70,30 +70,44 @@ int TCP_dev::send_buffer(char* buffer, uint8_t size)
 void TCP_dev::thread_handler(void)
 {
     struct pollfd fds;
-    char buffer[1];
+    int rc;
+    char buffer[10];
     int addrlen = sizeof(this->address);
-    fds.fd = this->server_fd;
-    fds.events = POLLIN;
+    fds.events = POLLIN | POLLHUP | POLLRDNORM;
     while(1)
     {
         if(!this->Is_connected)
         {
-            printf("TCP: waiting for connection of Car\n");
             if((this->socket_handler = accept(this->server_fd, (struct sockaddr *)&this->address, (socklen_t*)&addrlen)) < 0)
             {
-                printf("TCP: socket accept failed, check network connection\n");
+                if(errno != EINTR)
+                {
+                    printf("TCP: socket accept failed, check network connection\n");
+                    //printf("TCP: %s\n", strerror(errno));
+                }
             }
             else
             {
+                fds.fd = this->socket_handler;
                 this->Is_connected = true;
                 printf("TCP: Car connected\n");
             }
         }
-        poll(&fds, 1, -1);
-        if(0 >= recv(fds.fd, buffer, sizeof(buffer), 0))
+        else
         {
-            printf("TCP: connection lost\n");
-            this->Is_connected = false;
+            rc = poll(&fds, 1, -1);
+            if(rc > 0)
+            {
+                if(0 == recv(fds.fd, buffer, 10, 0))
+                {
+                    printf("TCP: Car disconnected\n");
+                    this->Is_connected = false;
+                }
+                else
+                {
+                    printf("TCP: data received\n");
+                }
+            }
         }
     }
 }
