@@ -30,12 +30,12 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
       To build the software of host: on host raspberryPi, type ```./build_host.sh``` in terminal.  
       To install the software of host:type ```sudo ./install_host.sh``` in terminal. (Only the kernel module needs to be installed)  
     2. Car  
-      ~~To be added~~  
+      To build the software of car: on car raspberryPi, type ```./build_car.sh``` in terminal.
 3. Execute the programme  
     1. Host  
-      type "sudo ./host" in terminal. (Because this programme would access the kernel module, so it requires super_user)  
+      Type "sudo ./host_exe" in terminal. (Because this programme would access the kernel module, so it requires super_user)  
     2. Car  
-      ~~To be added~~  
+      Type "./car_exe" in terminal.
 4. Game rules  
       Once the game starts(After the background music), the Pacdots(green LEDs) would all be on. The Pacman(the Car) would follow the instructions of keyboard connected to the host. If the Pacman eats a Pacdot (car hits the green LED), the LDR would give feedback to the host and shut down the corresponding LED. Meanwhile, a sound would give the player a feedback. The player would win the game when all Pacdots are eaten (a winning music would be played). There is only one ghost(red LED), which would move randomly, if the Pacman hits the ghost, the player will lose (a losing music would be played).  
 5. Have fun!  
@@ -138,6 +138,11 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 |23|CLK of SPI bus
 |24|CS_0 of SPI bus, LDR board
 |26|CS_1 of SPI bus, LED board
+|29|Keyboard, Left
+|31|Keyboard, Up
+|33|Keyboard, Right
+|35|Keyboard, Down
+|37|Keyboard, Reset
       
      
 ## License
