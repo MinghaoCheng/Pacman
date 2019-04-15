@@ -7,7 +7,7 @@ set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CXX_FLAGS "-Wall")
 
 # dir specification
-set (PROJ_DIR "..")
+set (PROJ_DIR "./..")
 set (SRC_DIR "${PROJ_DIR}/src")
 
 # add folders of source files
