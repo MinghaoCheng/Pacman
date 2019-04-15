@@ -8,7 +8,7 @@
 #include "mcp23x17_reg.h"
 
 /*
- * Description:
+ * Description
  * SPI params and addr specification
  */
 #define SPI_MODE            0
@@ -19,9 +19,11 @@
 
 bool MCP23S17::Is_reset = false;
 
-/*
- * Description:
- * Constructor for output device
+/**
+ * Constructor for the output device
+ * 
+ * @param  SPI_channel
+ * @return None
  */
 MCP23S17::MCP23S17(uint8_t SPI_channel)
 {
@@ -31,9 +33,13 @@ MCP23S17::MCP23S17(uint8_t SPI_channel)
     this->addr = DEV_ADDR;
 }
 
-/*
- * Description:
- * Constructor for input device
+/**
+ * Constructor for input device>
+ * 
+ * @param  SPI_channel
+ * @param  pointer of the callback function
+ * @param  pthread ID
+ * @return None
  */
 MCP23S17::MCP23S17(uint8_t SPI_channel, callback *INT_callback_func, pthread_t id):Thread(id)
 {
@@ -44,18 +50,22 @@ MCP23S17::MCP23S17(uint8_t SPI_channel, callback *INT_callback_func, pthread_t i
     this->addr = DEV_ADDR;
 }
 
-/*
- * Description:
+/**
  * Destructor, delete instance of SPI driver
+ *
+ * @param  None
+ * @return None
  */
 MCP23S17::~MCP23S17()
 {
     delete this->spi_dev;
 }
 
-/*
- * Description:
+/**
  * Initialisation function, reset device --> set device control register --> set params
+ * 
+ * @param  None
+ * @return result of the init, -1 --> failed, 0 --> success
  */
 int8_t MCP23S17::init(void)
 {
@@ -115,9 +125,11 @@ int8_t MCP23S17::init(void)
     return 0;
 }
 
-/*
- * Description:
- * Set value of GPIOA
+/**
+ * Set the output value of GPIOA
+ * 
+ * @param  value of GPIOA
+ * @return None
  */
 void MCP23S17::Set_GPIOA(uint8_t val)
 {
@@ -125,9 +137,11 @@ void MCP23S17::Set_GPIOA(uint8_t val)
     this->write_reg(this->addr, OLATA, val);
 }
 
-/*
- * Description:
- * Set value of GPIOA
+/**
+ * Set the output value of GPIOB
+ * 
+ * @param  value of GPIOB
+ * @return None
  */
 void MCP23S17::Set_GPIOB(uint8_t val)
 {
@@ -135,9 +149,11 @@ void MCP23S17::Set_GPIOB(uint8_t val)
     this->write_reg(this->addr, OLATB, val);
 }
 
-/*
- * Description:
+/**
  * Reset device, all devices would be reset together, this function will only reset all devices once
+ * 
+ * @param  None
+ * @return None
  */
 void MCP23S17::Reset(void)
 {
@@ -159,9 +175,11 @@ void MCP23S17::Reset(void)
     }
 }
 
-/*
- * Description:
+/**
  * Thread function, poll the Pac_dev device file and handle INT
+ *
+ * @param  None
+ * @return None
  */
 void MCP23S17::thread_handler(void)
 {
@@ -183,6 +201,12 @@ void MCP23S17::thread_handler(void)
     }
 }
 
+/**
+ * Handler of the INT
+ * 
+ * @param  None
+ * @return None
+ */
 void MCP23S17::INT_handler(uint8_t val)
 {
     uint8_t buffer[2];
@@ -191,9 +215,13 @@ void MCP23S17::INT_handler(uint8_t val)
     this->INT_callback->cb_func(buffer, 2);
 }
 
-/*
- * Description:
- * Low level function, write MCP23S17 register
+/**
+ * Low level function, write MCP23S17 register through SPI
+ * 
+ * @param  address of the device
+ * @param  address of the register
+ * @param  value of the register
+ * @return None
  */
 void MCP23S17::write_reg(uint8_t address, uint8_t reg, uint8_t value)
 {
@@ -206,9 +234,12 @@ void MCP23S17::write_reg(uint8_t address, uint8_t reg, uint8_t value)
     this->spi_dev->ReadWrite_Buffer(spiData, spiData, 3);
 }
 
-/*
- * Description:
- * Low level function, read MCP23S17 register
+/**
+ * Low level function, read MCP23S17 register through SPI
+ * 
+ * @param  address of the device
+ * @param  address of the register
+ * @return value of the register
  */
 uint8_t MCP23S17::read_reg(uint8_t address, uint8_t reg)
 {

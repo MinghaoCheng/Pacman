@@ -19,9 +19,8 @@
 #include "../util/Thread.h"
 #include "../util/callback.h"
 
-/*
- * Description:
- * enum to indicate the type of the device
+/**
+ * enum to indicate the type of the device>
  */
 typedef enum 
 {
@@ -29,9 +28,7 @@ typedef enum
     OUTPUT_DEV = 1
 }Dev_mode;
 
-
-/*
- * Decription:
+/**
  * Class of MCP23S17 driver
  */
 class MCP23S17:public Thread

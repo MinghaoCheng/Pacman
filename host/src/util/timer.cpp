@@ -6,9 +6,11 @@
  */
 #include "timer.h"
 
-/*
- * Description:
- * Constructor, set the signal and register the handler
+/**
+ * Constructor
+ * 
+ * @param  None
+ * @return None
  */
 timer::timer()
 {
@@ -32,9 +34,11 @@ timer::timer()
     }
 };
 
-/*
- * Description:
+/**
  * Destructor
+ * 
+ * @param  None
+ * @return None
  */
 timer::~timer()
 {
@@ -44,9 +48,11 @@ timer::~timer()
     signal(SIGRTMIN, SIG_IGN);
 }
 
-/*
- * Description:
+/**
  * Start the timer (signal)
+ * 
+ * @param  timer period, nanosecs
+ * @return None
  */
 void timer::start_timer(uint64_t nanosecs)
 {
@@ -61,9 +67,13 @@ void timer::start_timer(uint64_t nanosecs)
     }
 }
 
-/*
- * Description:
+/**
  * Reinterpret cast to the member function
+ * 
+ * @param number sig
+ * @param pointer to the siginfo_t
+ * @param void pointer
+ * @return None
  */
 void timer::timer_handler(int sig, siginfo_t *si, void *uc)
 {

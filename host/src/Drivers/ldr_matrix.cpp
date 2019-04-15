@@ -6,11 +6,13 @@
  */
 #include "ldr_matrix.h"
 
-/*
- * Description:
+/**
  * Contructor
- * Param:
- * Pointer of the callback instance
+ * Poll the device file, call the callback function when interrupt triggered
+ * 
+ * @param  ID of the thread
+ * @param  Pointer of the callback instance
+ * @return None
  */
 LDR_matrix::LDR_matrix(pthread_t ID, callback *INT_callback)
 {
@@ -19,18 +21,22 @@ LDR_matrix::LDR_matrix(pthread_t ID, callback *INT_callback)
     this->GPIO = new MCP23S17(LDR_GPIO_SPI_CHANNEL, (callback *)this, this->id);
 }
 
-/*
- * Description:
+/**
  * Destructor
+ * 
+ * @param  None
+ * @return None
  */
 LDR_matrix::~LDR_matrix(void)
 {
     delete this->GPIO;
 }
 
-/*
- * Description:
+/**
  * Initialise the hardware
+ * 
+ * @param  None
+ * @return result, -1 --> failed, 0 --> success
  */
 int8_t LDR_matrix::init(void)
 {
@@ -42,9 +48,12 @@ int8_t LDR_matrix::init(void)
     return 0;
 }
 
-/*
- * Description:
+/**
  * GPIO INT callback
+ * 
+ * @param data pass to the callback function
+ * @param size of the data
+ * @return None
  */
 void LDR_matrix::cb_func(uint8_t *param, uint8_t size)
 {

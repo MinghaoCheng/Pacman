@@ -8,27 +8,33 @@
 #include "TCP.h"
 #include <errno.h>
 
-/*
- * Description:
+/**
  * Constructor, pass the ID for thread
+ * 
+ * @param ID of the thread
+ * @return None
  */
 TCP_dev::TCP_dev(pthread_t ID):Thread(ID)
 {
     
 }
 
-/*
- * Description:
+/**
  * Destructor
+ * 
+ * @param None
+ * @return None
  */
 TCP_dev::~TCP_dev()
 {
     
 }
 
-/*
- * Description:
+/**
  * create, bind and listen a socket, configure the socket as well
+ * 
+ * @param None
+ * @return result of init, -1 --> failed, 0 --> success
  */
 int8_t TCP_dev::init(void)
 {
@@ -71,9 +77,12 @@ int8_t TCP_dev::init(void)
     return 0;
 }
 
-/*
- * Description:
+/**
  * Send data to client
+ * 
+ * @param pointer to the buffer
+ * @param size of the data
+ * @return result of sending, -1 --> failed
  */
 int TCP_dev::send_buffer(char* buffer, uint8_t size)
 {
@@ -84,9 +93,11 @@ int TCP_dev::send_buffer(char* buffer, uint8_t size)
     return -1;
 }
 
-/*
- * Description:
+/**
  * Thread function, poll the socket to detect disconnection and incoming data
+ * 
+ * @param None
+ * @return None
  */
 void TCP_dev::thread_handler(void)
 {

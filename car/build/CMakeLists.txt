@@ -12,10 +12,9 @@ set (SRC_DIR "${PROJ_DIR}/src")
 
 # add folders of source files
 aux_source_directory(${SRC_DIR} MAIN_SRC)
-aux_source_directory(${SRC_DIR}/test TEST_SRC)
 
 # set exe output path
 set(EXECUTABLE_OUTPUT_PATH ${PROJ_DIR})
 
 # add exe
-add_executable(car ${MAIN_SRC} ${TEST_SRC})
+add_executable(car ${MAIN_SRC} wiringPi pthread)

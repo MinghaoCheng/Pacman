@@ -10,8 +10,7 @@
 #include <stdint.h>
 #include <pthread.h>
 
-/*
- * Description:
+/**
  * Thread base function
  */
 class Thread

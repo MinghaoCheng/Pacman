@@ -34,8 +34,7 @@
  * GPIOA.4  row0
  */
 
-/*
- * Description:
+/**
  * Class of LED matrix
  */
 class LED_matrix:public Thread

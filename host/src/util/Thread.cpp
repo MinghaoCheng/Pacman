@@ -6,36 +6,44 @@
  */
 #include "Thread.h"
 
-/*
- * Description:
+/**
  * Constructor
+ * 
+ * @param  None
+ * @return None
  */
 Thread::Thread()
 {
     
 }
 
-/*
- * Description:
+/**
  * Constructor
+ * 
+ * @param  ID of the thread
+ * @return None
  */
 Thread::Thread(pthread_t ID)
 {
     this->id = ID;
 }
 
-/*
- * Description:
+/**
  * Destructor
+ * 
+ * @param  None
+ * @return None
  */
 Thread::~Thread()
 {
     
 }
 
-/*
- * Description:
+/**
  * Create& start the thread
+ * 
+ * @param  None
+ * @return None
  */
 void Thread::thread_start(void)
 {
@@ -45,27 +53,33 @@ void Thread::thread_start(void)
     }
 }
 
-/*
- * Description:
+/**
  * Thread join
+ * 
+ * @param  None
+ * @return None
  */
 void Thread::thread_join(void)
 {
     pthread_join(this->id, NULL);
 }
 
-/*
- * Description:
+/**
  * Real function of the thread, in this way it could be a non-static member function
+ * 
+ * @param  None
+ * @return None
  */
 void Thread::thread_handler(void)
 {
     
 }
 
-/*
- * Description:
+/**
  * Function of the thread, reinterpert the param(address of the instance) and run the real thread function
+ * 
+ * @param  param
+ * @return None
  */
 void *Thread::exe(void *param)
 {

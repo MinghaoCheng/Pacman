@@ -9,8 +9,7 @@
 
 #include <stdint.h>
 
-/*
- * Description:
+/**
  * Callback base function
  */
 class callback

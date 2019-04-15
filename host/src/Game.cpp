@@ -6,9 +6,11 @@
  */
 #include "Game.h"
 
-/*
- * Description:
+/**
  * Constructor, create instances of hardwares
+ * 
+ * @param base of the ID
+ * @return None
  */
 Game::Game(pthread_t ID):Thread(ID),timer()
 {
@@ -21,9 +23,11 @@ Game::Game(pthread_t ID):Thread(ID),timer()
     this->game_running = false;
 }
 
-/*
- * Description:
+/**
  * Destructor
+ * 
+ * @param None
+ * @return None
  */
 Game::~Game(void)
 {
@@ -34,9 +38,11 @@ Game::~Game(void)
     delete this->sound_dev;
 }
 
-/*
- * Description:
+/**
  * Initialise the hardwares
+ * 
+ * @param None
+ * @return result of init, -1 --> failed, 0 --> success
  */
 int8_t Game::init(void)
 {
@@ -70,9 +76,11 @@ int8_t Game::init(void)
     return 0;
 }
 
-/*
- * Description:
+/**
  * Reset the game
+ * 
+ * @param None
+ * @return None
  */
 void Game::reset(void)
 {
@@ -100,9 +108,11 @@ void Game::reset(void)
     this->game_running = true;
 }
 
-/*
- * Description:
+/**
  * Thread handler
+ * 
+ * @param None
+ * @return None
  */
 void Game::thread_handler(void)
 {
@@ -119,9 +129,12 @@ void Game::thread_handler(void)
     }
 }
 
-/*
- * Description:
+/**
  * Implementation callback function
+ * 
+ * @param pointer to the param
+ * @param size of the param
+ * @return None
  */
 void Game::cb_func(uint8_t *param, uint8_t size)
 {
@@ -177,9 +190,11 @@ void Game::cb_func(uint8_t *param, uint8_t size)
     }
 }
 
-/*
- * Description:
- * Timer callback
+/**
+ * timer event handler
+ * 
+ * @param None
+ * @return None
  */
 void Game::timerEvent(void)
 {
@@ -189,9 +204,11 @@ void Game::timerEvent(void)
     }
 }
 
-/*
- * Description:
+/**
  * Check the status of the game, winning or losing
+ * 
+ * @param None
+ * @return result of the game, -1 --> lost, 0 --> normal, 1 --> win
  */
 int8_t Game::game_status(void)
 {
@@ -224,9 +241,11 @@ int8_t Game::game_status(void)
     return 0;
 }
 
-/*
- * Description:
+/**
  * Call by the timerEvent, update the ghost position, chasing the Pacman
+ * 
+ * @param None
+ * @return None
  */
 void Game::ghost_position_update(void)
 {
@@ -275,9 +294,11 @@ void Game::ghost_position_update(void)
     this->game_status();
 }
 
-/*
- * Description:
+/**
  * Update the green LEDs
+ * 
+ * @param None
+ * @return None
  */
 void Game::update_LED_Green(void)
 {
@@ -287,9 +308,11 @@ void Game::update_LED_Green(void)
     }
 }
 
-/*
- * Description:
+/**
  * Update the red LEDs
+ * 
+ * @param None
+ * @return None
  */
 void Game::update_LED_Red(void)
 {

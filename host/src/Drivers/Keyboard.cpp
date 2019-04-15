@@ -7,27 +7,34 @@
  
 #include "Keyboard.h"
 
-/*
- * Description:
+/**
  * Constructor, register the callback function
+ * 
+ * @param  ID of the thread
+ * @param  pointer to the registering callback funtion
+ * @return None
  */
 Keyboard::Keyboard(pthread_t ID, callback *CB):Thread(ID)
 {
     this->cb = CB;
 }
 
-/*
- * Description:
+/**
  * Destructor
+ * 
+ * @param  None
+ * @return None
  */
 Keyboard::~Keyboard()
 {
     
 }
 
-/*
- * Description:
- * Open the device file
+/**
+ * Initialisation, open the device file
+ * 
+ * @param  None
+ * @return result, 0 --> success, -1 --> failed
  */
 int8_t Keyboard::init(void)
 {
@@ -40,9 +47,12 @@ int8_t Keyboard::init(void)
     return 0;
 }
 
-/*
- * Description:
- * Thread handler, poll the device file, call the callback function when interrupt triggered
+/**
+ * Thread handler
+ * Poll the device file, call the callback function when interrupt triggered
+ * 
+ * @param  None
+ * @return None
  */
 void Keyboard::thread_handler(void)
 {

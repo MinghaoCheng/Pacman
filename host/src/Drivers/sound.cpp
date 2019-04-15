@@ -7,9 +7,11 @@
 #include "sound.h"
 
 char string[100];
-/*
- * Description:
+/**
  * Reconstruct the string
+ * 
+ * @param string
+ * @return None
  */
 void sys_printf(char *fmt,...)
 {
@@ -20,37 +22,45 @@ void sys_printf(char *fmt,...)
     va_end(ap);
 }
 
-/*
- * Description:
+/**
  * Constructor, pass the Thread ID
+ * 
+ * @param ID of the thread
+ * @return None
  */
 Sound_dev::Sound_dev(pthread_t ID):Thread(ID)
 {
     
 }
 
-/*
- * Description:
+/**
  * Destructor
+ * 
+ * @param None
+ * @return None
  */
 Sound_dev::~Sound_dev()
 {
     
 }
 
-/*
- * Description:
+/**
  * Initialise
+ * 
+ * @param None
+ * @return result, 0 --> success
  */
 int8_t Sound_dev::init(void)
 {
     this->flag = false;
-    return 1;
+    return 0;
 }
 
-/*
- * Description:
+/**
  * Pass the file name to global string and play it in another thread
+ * 
+ * @param pointer to the file
+ * @return None
  */
 void Sound_dev::play_wav(const char *File_name)
 {
@@ -61,18 +71,22 @@ void Sound_dev::play_wav(const char *File_name)
     }
 }
 
-/*
- * Description:
- * Play it in the current thread
+/**
+ * Play the wav file in the current thread
+ * 
+ * @param pointer to the file
+ * @return None
  */
 void Sound_dev::play_wav_blocking(const char *File_name)
 {
     sys_printf((char *)"aplay %s\n", File_name);
 }
 
-/*
- * Description:
+/**
  * Thread function, play the sound file
+ * 
+ * @param None
+ * @return None
  */
 void Sound_dev::thread_handler(void)
 {

@@ -15,6 +15,9 @@
 
 #include "./../util/Thread.h"
 
+/**
+ * Class handling the sound
+ */
 class Sound_dev:public Thread
 {
     public:

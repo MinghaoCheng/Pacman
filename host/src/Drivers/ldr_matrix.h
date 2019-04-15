@@ -14,8 +14,7 @@
 #include "./../util/callback.h"
 #include "brd_config.h"
 
-/*
- * Description:
+/**
  * Class of Light-Dependent-Resistor matrix
  */
 class LDR_matrix: public callback

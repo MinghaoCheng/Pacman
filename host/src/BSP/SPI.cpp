@@ -12,9 +12,14 @@
 
 #include "SPI.h"
 
-/*
- * Description:
+/**
  * class constructor, set params
+ * 
+ * @param  SPI channel
+ * @param  SPI speed
+ * @param  SPI mode
+ * @param  SPI bits per word
+ * @return None
  */
 SPI::SPI(uint8_t channel, uint32_t speed, uint8_t mode, uint8_t bits_per_word)
 {
@@ -29,18 +34,22 @@ SPI::SPI(uint8_t channel, uint32_t speed, uint8_t mode, uint8_t bits_per_word)
     this->spi_msg.delay_usecs = 0;
 }
 
-/*
- * Description:
+/**
  * class destructor, close device file
+ * 
+ * @param  None
+ * @return None
  */
 SPI::~SPI()
 {
     close(this->FD);
 }
 
-/*
- * Description:
+/**
  * open SPI and set params
+ * 
+ * @param  None
+ * @return fd of the device file
  */
 int8_t SPI::Open(void)
 {
@@ -82,9 +91,13 @@ int8_t SPI::Open(void)
     return fd;
 }
 
-/*
- * Description:
+/**
  * write and read buffer simultaneously
+ * 
+ * @param  pointer to the tx_buffer
+ * @param  pointer to the rx_buffer
+ * @param  length of the data
+ * @return result of the communication
  */
 int8_t SPI::ReadWrite_Buffer(uint8_t *tx_buffer, uint8_t *rx_buffer, uint8_t length)
 {

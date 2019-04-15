@@ -7,8 +7,8 @@
 #ifndef _BRD_CONFIG_H_
 #define _BRD_CONFIG_H_
 
-/*
- *  Pacman device param specification
+/**
+ * Pacman device param specification
  */
 #define LED_MATRIX_ROW                      4
 #define LED_MATRIX_COLUMN                   4

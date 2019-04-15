@@ -1,10 +1,10 @@
 #ifndef _MCP23x17_REG_H_
 #define _MCP23x17_REG_H_
 
-/*
- * Description:
+/**
  * mapping MCP23S17 registers
  */
+
 
 // MCP23x17 Registers
 #define IODIRA                  0x00

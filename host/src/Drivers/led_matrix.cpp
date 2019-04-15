@@ -8,11 +8,11 @@
 
 LED_matrix* LED_matrix::addr = NULL;
 
-/*
- * Description:
- * Constructor
- * Param:
- * The id of the thread
+/**
+ * Contructor
+ * 
+ * @param The id of the thread
+ * @return None
  */
 LED_matrix::LED_matrix(pthread_t ID):Thread(ID)
 {
@@ -20,27 +20,34 @@ LED_matrix::LED_matrix(pthread_t ID):Thread(ID)
     LED_matrix::addr = this;
 }
 
-/*
- * Description:
+/**
  * Destructor
+ * 
+ * @param None
+ * @return None
  */
 LED_matrix::~LED_matrix()
 {
     delete this->GPIO;
 }
 
-/*
- * Description:
+/**
  * Initialise the hardware
+ * 
+ * @param None
+ * @return result of the initialisation, 0 --> success, -1 --> failed
  */
 int8_t LED_matrix::init(void)
 {
     return this->GPIO->init();
 }
 
-/*
- * Description:
+/**
  * Write value of a row to the green led matrix
+ * 
+ * @param index of the row
+ * @param value of the row
+ * @return None
  */
 void LED_matrix::write_green(uint8_t row, uint8_t val)
 {
@@ -48,9 +55,12 @@ void LED_matrix::write_green(uint8_t row, uint8_t val)
     this->v_buffer[row] |= (val&0xf);
 }
 
-/*
- * Description:
+/**
  * Write value of a row to the red led matrix
+ * 
+ * @param index of the row
+ * @param value of the row
+ * @return None
  */
 void LED_matrix::write_red(uint8_t row, uint8_t val)
 {
@@ -58,9 +68,13 @@ void LED_matrix::write_red(uint8_t row, uint8_t val)
     this->v_buffer[row] |= (val&0xf)<<4;
 }
 
-/*
- * Description:
+/**
+ * LED matrix refresh function
  * Refresh the physical LED matrix device, should be called every LED_ROW_REFRESH_PERIOD_US us
+ * 
+ * @param index of the row
+ * @param value of the row
+ * @return None
  */
 void LED_matrix::refresh(void)
 {
@@ -91,9 +105,13 @@ void LED_matrix::refresh(void)
     refresh_flag = !refresh_flag;
 }
 
-/*
- * Description:
+/**
  * Callback of the timer of the class
+ * 
+ * @param number sig
+ * @param pointer to the siginfo_t
+ * @param void pointer
+ * @return None
  */
 void LED_matrix::TIMER_handler(int sig, siginfo_t *si, void *uc)
 {
@@ -104,16 +122,15 @@ void LED_matrix::TIMER_handler(int sig, siginfo_t *si, void *uc)
     //}
 }
 
-/*
- * Description:
- * Initialise the timer.
- * Note: the program would crash with "sigmentation error",
- *       which indicates there might be another program using ALARM signal and sigqueue
+/**
+ * Initialise the timer
  * Procedure:
- *       1. init the signal handler;
- *       2. init the sigqueue which would pass the address of the instance;
- *       3. start the ULARM timer
- *
+ *        1. init the signal handler;
+ *        2. init the sigqueue which would pass the address of the instance;
+ *        3. start the ULARM timer
+ * 
+ * @param None
+ * @return None
  */
 void LED_matrix::thread_handler(void)
 {
@@ -140,4 +157,3 @@ void LED_matrix::thread_handler(void)
         sleep(100);
     }
 }
-
