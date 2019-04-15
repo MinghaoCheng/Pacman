@@ -6,6 +6,9 @@ ENG5220, Embedded real-time programming project, Team19
 |---|---
 |E-mail|2359434c@student.gla.ac.uk
 
+* The follwing link is two demostrations of playing the game, catched by the ghost and won the game
+https://www.youtube.com/playlist?list=PLmhQhGby8E4eoPKThM3S1RnaBH7sxEcJI
+
 ## Motivation& Introduction
 
 As a classic computer game, Pacman impressed lots of people. Now we can do a Pacman game in real life!
