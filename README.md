@@ -113,16 +113,29 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 
 * For LED&LDR matrices, put one green LED, one red LED and one LDR at a single hole on the panel(There are 4x4 holes). Note to put LDR above the LEDs.  
 
-<div align=center><img width="400" height="400" src="/Docs/pictures/panel0.jpg"/></div>  
+<div align=center><img width="400" height="400" src="/Docs/pictures/Pannel_0.jpg"/></div>  
 
-* Soder green LED matrix/red LED matrix as follow, this schematic also can be found at [PCBs](/Docs/PCBs):
+* Solder green LED matrix/red LED matrix as follow, this schematic also can be found at [PCBs](/Docs/PCBs):
 
-<div align=center><img width="400" height="400" src="/Docs/pictures/LED_matrix0.png"/></div>  
+<div align=center><img width="400" height="400" src="/Docs/pictures/LED_matrix0.png"/></div> 
+
+* Solder keyboard following the schematic
+
+* Picture of the system set
+
+<div align=center><img width="400" height="400" src="/Docs/pictures/System_0.jpg"/></div>
+
+<div align=center><img width="400" height="400" src="/Docs/pictures/System_1.jpg"/></div>
 
 ## Software
 * There are two source codes in this project. One works on the host and another one works on the car.  
 * The software of the host contains a kernel module which would work as the driver of the GPIO(it handles GPIO interrupt and output of the GPIO used by the host), and it contains the main codes which works in the user space. There are several components of this software, see details at [Docs](/Docs/software/host)  
 * The software of the car controls the motor using L298N through GPIO, and it also receives instructions from the host over TCP/IP through Wi-Fi connection. See details at [Docs](/Docs/software/car)   
+* dependency:  
+      * host:
+      ```pthread, rt, ```
+      * car:
+      ```pthread```
 ## Found a bug<a name="found_a_bug">
 * Hardware:  
       To isolate the fault of the hardware, the best way is to check the PCB-layouts and schematics.  
@@ -146,7 +159,4 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
       
      
 ## License
-
-dependency:  
-~~sudo apt-get install alsa-utils~~  
-~~sudo apt-get install libasound2-dev~~  
+See license.md
