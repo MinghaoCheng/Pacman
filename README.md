@@ -160,6 +160,10 @@ There is a car controlled by a raspberryPi which acts as Pacman. It can move aro
 |35|Keyboard, Down
 |37|Keyboard, Reset
       
-     
+* Software:
+      Remember to add "sudo" to install the host kernel module and execute the programme
+      
+* For other questions, you can send me an Email with description
+
 ## License
 See license.md
